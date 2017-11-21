@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Alarmliste</title>
+    <style type="text/css">
+ 
+		 body {
+		  background-color: #3e94ec;
+		  font-family: "Roboto", helvetica, arial, sans-serif;
+		  font-size: 16px;
+		  font-weight: 400;
+		  text-rendering: optimizeLegibility; }
+
+		.container { 
+			width: 1400px; 
+			margin-left: auto; 
+			margin-right: auto; }
+				
+
+		div.table-title {
+		   display: block;
+		  margin: auto;
+		  padding:5px;
+		  width: 100%; }
+
+		.table-title h3 {
+		   color: #fafafa;
+		   font-size: 30px;
+		   font-weight: 400;
+		   font-style:normal;
+		   font-family: "Roboto", helvetica, arial, sans-serif;
+		   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+		   text-transform:uppercase; }		
+		   
+		/*** Table Styles **/
+
+		.table-fill {
+		  background: white;
+		  border-radius:3px;
+		  border-collapse: collapse;
+		  margin: auto;
+		  padding:5px;
+		  width: 100%;
+		  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+		  animation: float 5s infinite; }
+		 
+		th {
+		  color:#D5DDE5;;
+		  background:#1b1e24;
+		  border-bottom:4px solid #9ea7af;
+		  border-right: 1px solid #343a45;
+		  font-size:18px;
+		  font-weight: 100;
+		  padding:24px;
+		  text-align:left;
+		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+		  vertical-align:middle; }
+
+		th:first-child {
+		  border-top-left-radius:3px; }
+		 
+		th:last-child {
+		  border-top-right-radius:3px;
+		  border-right:none; }
+		  
+		tr {
+		  border-top: 1px solid #C1C3D1;
+		  border-bottom-: 1px solid #C1C3D1;
+		  color:#666B85;
+		  font-size:16px;
+		  font-weight:normal;
+		  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1); }
+		 
+		tr:hover td {
+		  background:#4E5066;
+		  color:#FFFFFF;
+		  border-top: 1px solid #22262e; }
+		 
+		tr:first-child {
+		  border-top:none; }
+
+		tr:last-child {
+		  border-bottom:none; }
+		 
+		tr:nth-child(odd) td {
+		  background:#EBEBEB; }
+		 
+		tr:nth-child(odd):hover td {
+		  background:#4E5066; }
+
+		tr:last-child td:first-child {
+		  border-bottom-left-radius:3px; }
+		 
+		tr:last-child td:last-child {
+		  border-bottom-right-radius:3px; }
+		 
+		td {
+		  background:#FFFFFF;
+		   padding: 12px 16px;
+		  text-align:left;
+		  vertical-align:middle;
+		  font-weight:300;
+		  font-size:16px;
+		  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+		  border-right: 1px solid #C1C3D1; }
+
+		td:last-child {
+		  border-right: 0px; }
+
+		th.text-left,
+		td.text-left {
+		  text-align: left; }
+
+		th.text-center,
+		td.text-center {
+		  text-align: center; }
+
+		a {
+			cursor: pointer!important; }
+
+		td.importance_6,
+		td.importance_7,
+		td.importance_8 {
+			 background-color: orange!important;
+			color: white;
+			font-weight: bold; }
+
+		td.importance_9,
+		td.importance_10 {
+			background-color: red!important;
+			color: white;
+			font-weight: bold; }
+	
+    </style>
+</head>
+<body>
+    <div class="container">
+	<div class="table-title">	
+		<h3>Alarmmeldungen Raum Lübeck</h3>
+	</div>
+        <table class="table-fill">
+			<thead>
+			<tr>
+				<th>Zeit</th> <th>Priorität</th> <th>Grund</th> <th>Meldung</th> <th>Gebiet</th> <th>Auftreten</th> <th>Quittiert</th> <th>Aktion</th>
+			</tr>
+			</thead>
+			<tbody id="alarm_list" class="table-hover">
+			</tbody>
+        </table>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="/dpd.js"></script>
+	<script type="text/javascript" src="store.js"></script>
+	<script type="text/javascript" src="netzDatenStrom.js"></script>
+    <script type="text/javascript" src="alarm.js"></script>
+</body>
+</html>
