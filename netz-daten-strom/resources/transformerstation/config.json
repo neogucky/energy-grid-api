@@ -1,0 +1,53 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 0
+		},
+		"connectionIDs": {
+			"name": "connectionIDs",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "connectionIDs",
+			"order": 1
+		},
+		"transformerIDs": {
+			"name": "transformerIDs",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "transformerIDs",
+			"order": 2
+		},
+		"areaID": {
+			"name": "areaID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "areaID",
+			"order": 3
+		},
+		"consumptionInKWh": {
+			"name": "consumptionInKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "consumptionInKWh",
+			"order": 4
+		},
+		"maxConsumptionInKWh": {
+			"name": "maxConsumptionInKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "maxConsumptionInKWh",
+			"order": 5
+		}
+	}
+}

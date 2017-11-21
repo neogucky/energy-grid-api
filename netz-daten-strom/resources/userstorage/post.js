@@ -1,0 +1,1 @@
+emit('userstorage:new', this);

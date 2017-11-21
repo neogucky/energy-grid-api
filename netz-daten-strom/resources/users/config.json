@@ -1,0 +1,21 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"roles": {
+			"name": "roles",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "roles",
+			"order": 0
+		},
+		"lastLogin": {
+			"name": "lastLogin",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "lastLogin",
+			"order": 1
+		}
+	}
+}

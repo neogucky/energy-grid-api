@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"maxCapacityKWh": {
+			"name": "maxCapacityKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "maxCapacityKWh",
+			"order": 0
+		},
+		"areaID": {
+			"name": "areaID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "areaID",
+			"order": 1
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 2
+		},
+		"disrupted": {
+			"name": "disrupted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "disrupted",
+			"order": 3
+		},
+		"capacityKWh": {
+			"name": "capacityKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "capacityKWh",
+			"order": 4
+		}
+	}
+}

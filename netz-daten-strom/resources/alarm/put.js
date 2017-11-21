@@ -1,0 +1,1 @@
+emit('alarm:update', this);

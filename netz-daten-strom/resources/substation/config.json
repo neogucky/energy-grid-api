@@ -1,0 +1,53 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 0
+		},
+		"connectionIDs": {
+			"name": "connectionIDs",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "connectionIDs",
+			"order": 1
+		},
+		"areaID": {
+			"name": "areaID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "areaID",
+			"order": 2
+		},
+		"highVolatageIntakeInKWh": {
+			"name": "highVolatageIntakeInKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "highVolatageIntakeInKWh",
+			"order": 3
+		},
+		"maxHighVolatageIntakeInKWh": {
+			"name": "maxHighVolatageIntakeInKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "maxHighVolatageIntakeInKWh",
+			"order": 4
+		},
+		"maxHighVoltageOuttakeInKWh": {
+			"name": "maxHighVoltageOuttakeInKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "maxHighVoltageOuttakeInKWh",
+			"order": 5
+		}
+	}
+}

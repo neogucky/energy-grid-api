@@ -1,0 +1,1 @@
+emit('alarm:new', this);

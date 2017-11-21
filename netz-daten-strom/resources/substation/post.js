@@ -1,0 +1,1 @@
+emit('substation:new', this);

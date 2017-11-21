@@ -1,0 +1,21 @@
+{
+	"type": "Collection",
+	"properties": {
+		"sessionTime": {
+			"name": "sessionTime",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "sessionTime",
+			"order": 0
+		},
+		"user": {
+			"name": "user",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "user",
+			"order": 1
+		}
+	}
+}

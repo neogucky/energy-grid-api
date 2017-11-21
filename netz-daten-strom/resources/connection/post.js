@@ -1,0 +1,1 @@
+emit('connection:new', this);

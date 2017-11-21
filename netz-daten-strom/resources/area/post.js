@@ -1,0 +1,1 @@
+emit('area:new', this);

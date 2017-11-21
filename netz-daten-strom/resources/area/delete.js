@@ -1,0 +1,1 @@
+emit('area:delete', this);

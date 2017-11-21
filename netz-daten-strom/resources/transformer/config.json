@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 0
+		},
+		"loadInKW": {
+			"name": "loadInKW",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "loadInKW",
+			"order": 1
+		},
+		"gear": {
+			"name": "gear",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "gear",
+			"order": 2
+		},
+		"active": {
+			"name": "active",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": true,
+			"id": "active",
+			"order": 3
+		}
+	}
+}

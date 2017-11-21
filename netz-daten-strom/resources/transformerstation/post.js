@@ -1,0 +1,1 @@
+emit('transformerstation:new', this);

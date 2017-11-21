@@ -1,0 +1,1 @@
+emit('transformer:new', this);

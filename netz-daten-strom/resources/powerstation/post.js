@@ -1,0 +1,1 @@
+emit('powerstation:new', this);

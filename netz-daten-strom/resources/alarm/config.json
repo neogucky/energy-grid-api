@@ -1,0 +1,93 @@
+{
+	"type": "Collection",
+	"properties": {
+		"dateTime": {
+			"name": "dateTime",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "dateTime",
+			"order": 0
+		},
+		"importance": {
+			"name": "importance",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "importance",
+			"order": 1
+		},
+		"message": {
+			"name": "message",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "message",
+			"order": 2
+		},
+		"areaID": {
+			"name": "areaID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "areaID",
+			"order": 3
+		},
+		"isAck": {
+			"name": "isAck",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "isAck",
+			"order": 4
+		},
+		"needsAck": {
+			"name": "needsAck",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "needsAck",
+			"order": 5
+		},
+		"triggerTypeID": {
+			"name": "triggerTypeID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "triggerTypeID",
+			"order": 6
+		},
+		"triggerID": {
+			"name": "triggerID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "triggerID",
+			"order": 7
+		},
+		"alarmType": {
+			"name": "alarmType",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "alarmType",
+			"order": 8
+		},
+		"triggerSubElementType": {
+			"name": "triggerSubElementType",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "triggerSubElementType",
+			"order": 9
+		},
+		"triggerSubElementName": {
+			"name": "triggerSubElementName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "triggerSubElementName",
+			"order": 10
+		}
+	}
+}
