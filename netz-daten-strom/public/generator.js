@@ -686,7 +686,7 @@ $(document).ready(function() {
 		for (key in stores['substation'].items){
 			data.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVolatageIntakeInKWh});
 		}
-		
+		renderD3Example();
 	}
 	
 	function renderD3Example() {
