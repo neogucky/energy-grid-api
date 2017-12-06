@@ -1,16 +1,22 @@
 var powerType = {
-	0 : 'conventional',
+	0 : 'conventional', /* Conventional energy production, independent from weather etc. */
 	1 : 'wind',
 	2 : 'solar',
-	3 : 'water'
+	3 : 'water',
+	4 : 'storage' /* Energy storage can store energy on high production and emit it on high consumption. */
 };
 
 var alarmType = {
-	connectionError : 'connection error',
-	powerFailure : 'power plant failure',
-	overloadWarning : 'overload warning',
-	partialBlackout : 'partial blackout',
-	unexpectedError : 'unexpected error'
+	communicationError : { textID : 'alarm.communication', minPriority : 5, maxPriority : 5 }, 
+	powerFailure : { textID : 'alarm.powerfailure', minPriority : 5, maxPriority : 5 }, 
+	overloadWarning : { textID : 'alarm.overload', minPriority : 5, maxPriority : 5 }, 
+	energyShortage : { textID : 'alarm.shortage', minPriority : 8, maxPriority : 8 }, 
+	componentDefect : { textID : 'alarm.shortage', minPriority : 8, maxPriority : 8 }, 
+	doorOpened : { textID : 'alarm.door.open', minPriority : 3, maxPriority : 3 }, 
+	doorClosed : { textID : 'alarm.door.closed', minPriority : 3, maxPriority : 3 }, 
+	occupiedWarning : { textID : 'alarm.occupied.warning', minPriority : 3, maxPriority : 3 }, 
+	occupiedAlarm : { textID : 'alarm.occupied.danger', minPriority : 10, maxPriority : 10 }, 
+	unexpectedError : { textID : 'alarm.unexpected', minPriority : 1, maxPriority : 10 }
 };
 
 var objectType = {
@@ -22,20 +28,20 @@ var objectType = {
 }
 
 var german = {
-	translate : function(word){
-		if (this.words[word] === undefined){
-			console.log('Word "' + word + '" can\'t be found in translation');
-			return word;
+	translate : function(textResource){
+		if (this.resources[textResource] === undefined){
+			console.log('Text resource "' + textResource + '" can\'t be found in translation');
+			return textResource;
 		}
-		return this.words[word];
+		return this.resources[textResource];
 	},
-	words : {
-		'conventional' : 'Konventionell',
-		'wind' : 'Wind',
-		'solar' : 'Solar',
-		'water' : 'Wasser',
-		'connection error' : 'Verbindungsfehler',
-		'unexpected error' : 'Unerwarteter Fehler'		
+	resources : {
+		'energy.conventional' : 'Konventionell',
+		'energy.wind' : 'Wind',
+		'energy.solar' : 'Solar',
+		'energy.water' : 'Wasser',
+		'alarm.connection' : 'Verbindungsfehler',
+		'alarm.unexpected' : 'Unerwarteter Fehler'		
 	}
 };
 
