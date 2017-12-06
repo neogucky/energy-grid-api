@@ -129,6 +129,7 @@ $(document).ready(function() {
 	var change = [];
 	
 	var chartData = []; //the data displayed in the chart
+	var pieChart; //global reference 
 	
 	var isConnected = false;
 	var loggedinUser;
@@ -315,10 +316,9 @@ $(document).ready(function() {
 				totalCapacity += connections[innerkey].capacityKWh;
 			}
 			
-			console.log(totalCapacity);
-			
 			updateSubStationCapacity(subStation, totalCapacity);
 		}
+		pieChart.updateProp("data.content", chartData);
 	}
 	
 	function updateConnections(){
@@ -650,10 +650,10 @@ $(document).ready(function() {
 	
 	function updateSubStationCapacity(station, capacity) {
 		
-		if (data.length > 0){
-			for (key in data){
-				if (data[key].id == station.id){
-					data[key].value = capacity;
+		if (chartData.length > 0){
+			for (key in chartData){
+				if (chartData[key].id == station.id){
+					chartData[key].value = capacity;
 				}
 			}
 		}
@@ -684,7 +684,7 @@ $(document).ready(function() {
 	function prepareChartAndShow(){
 		
 		for (key in stores['substation'].items){
-			data.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVolatageIntakeInKWh});
+			chartData.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVolatageIntakeInKWh});
 		}
 		renderD3Example();
 	}
@@ -703,22 +703,25 @@ $(document).ready(function() {
 		 *	This is not using cool D3 data driven aproaches.
 		 */
 	
-			var pie = new d3pie("chart", {
-			  header: {
-				title: {
-				  text: "Energy consumption per sub station"
-				},
-				location: "pie-center"
-			  },
-			  size: {
-				pieInnerRadius: "80%"
-			  },
-			  data: {
-				sortOrder: "label-asc",
-				content: data
-			  }
-			});		
-						
+		var pieChart = new d3pie("chart", {
+		  header: {
+			title: {
+			  text: "Energy consumption per sub station"
+			},
+			location: "pie-center"
+		  },
+		  size: {
+			pieInnerRadius: "80%"
+		  },
+		  data: {
+			sortOrder: "label-asc",
+			content: chartData
+		  }
+		});
+		
+		//after first render disable load animation:
+		pieChart.updateProp("effects.load", {effect: "none"});
+				
 	}
 	
 	/*
