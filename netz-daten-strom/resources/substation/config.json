@@ -25,20 +25,20 @@
 			"id": "areaID",
 			"order": 2
 		},
-		"highVolatageIntakeInKWh": {
-			"name": "highVolatageIntakeInKWh",
+		"highVoltageIntakeInKWh": {
+			"name": "highVoltageIntakeInKWh",
 			"type": "number",
 			"typeLabel": "number",
 			"required": false,
-			"id": "highVolatageIntakeInKWh",
+			"id": "highVoltageIntakeInKWh",
 			"order": 3
 		},
-		"maxHighVolatageIntakeInKWh": {
-			"name": "maxHighVolatageIntakeInKWh",
+		"maxHighVoltageIntakeInKWh": {
+			"name": "maxHighVoltageIntakeInKWh",
 			"type": "number",
 			"typeLabel": "number",
 			"required": false,
-			"id": "maxHighVolatageIntakeInKWh",
+			"id": "maxHighVoltageIntakeInKWh",
 			"order": 4
 		},
 		"maxHighVoltageOuttakeInKWh": {
