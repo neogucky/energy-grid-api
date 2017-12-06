@@ -128,6 +128,8 @@ $(document).ready(function() {
 	var self = this;
 	var change = [];
 	
+	var chartData = []; //the data displayed in the chart
+	
 	var isConnected = false;
 	var loggedinUser;
 	
@@ -163,6 +165,8 @@ $(document).ready(function() {
 		$('#status').text('Connected - waiting for login');
 		$('#status').css('color', '#925e00');
 		isConnected = true;
+		
+		prepareChartAndShow();
 		
 		self.session = new DPDSession(stores['simulator']);
 		
@@ -646,6 +650,14 @@ $(document).ready(function() {
 	
 	function updateSubStationCapacity(station, capacity) {
 		
+		if (data.length > 0){
+			for (key in data){
+				if (data[key].id == station.id){
+					data[key].value = capacity;
+				}
+			}
+		}
+		
 		dpd.substation.put(station.id, {highVolatageIntakeInKWh : capacity} ,function(result, error) {
 		  // Do something
 		});
@@ -669,12 +681,32 @@ $(document).ready(function() {
 		});
 	}
 	
+	function prepareChartAndShow(){
+		
+		for (key in stores['substation'].items){
+			data.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVolatageIntakeInKWh});
+		}
+		
+	}
+	
 	function renderD3Example() {
 
-			var pie = new d3pie("pie", {
+		/*
+		 * DO
+		 *		NOT
+		 *				DO
+		 +					IT
+		 +						LIKE
+		 +								THIS
+		 +										!!!!!!!!!!
+		 *
+		 *	This is not using cool D3 data driven aproaches.
+		 */
+	
+			var pie = new d3pie("chart", {
 			  header: {
 				title: {
-				  text: "A Simple Donut Pie"
+				  text: "Energy consumption per sub station"
 				},
 				location: "pie-center"
 			  },
@@ -683,21 +715,10 @@ $(document).ready(function() {
 			  },
 			  data: {
 				sortOrder: "label-asc",
-				content: [
-				  { label: "JavaScript", value: 1 },
-				  { label: "Ruby", value: 2 },
-				  { label: "Java", value: 3 },
-				  { label: "C++", value: 2 },
-				  { label: "Objective-C", value: 6 }
-				]
+				content: data
 			  }
 			});		
-			
-			var svg = d3.select("div#chart")
-			.append(pie)
-			.attr("width", 500)
-			.attr("height", 100);
-			
+						
 	}
 	
 	/*
