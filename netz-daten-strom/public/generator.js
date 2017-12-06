@@ -609,13 +609,13 @@ $(document).ready(function() {
 		}
 	}
 	
-	function generateAlarm(importance, type, alarm, errorMessage, alarmSource){
+	function generateAlarm(importance, type, alarmType, errorMessage, alarmSource){
 		dpd.alarm.post({
 				dateTime: new Date().getTime(), 
 				importance: importance,
 				triggerTypeID: type,
 				triggerID: alarmSource.id,
-				alarmType: alarm,
+				alarmType: alarmType,
 				message: errorMessage,
 				areaID: alarmSource.areaID,
 				needsAck: importance > 7,
@@ -667,6 +667,37 @@ $(document).ready(function() {
 		return $.grep(array, function(el, index) {
 			return index == $.inArray(el, array);
 		});
+	}
+	
+	function renderD3Example() {
+
+			var pie = new d3pie("pie", {
+			  header: {
+				title: {
+				  text: "A Simple Donut Pie"
+				},
+				location: "pie-center"
+			  },
+			  size: {
+				pieInnerRadius: "80%"
+			  },
+			  data: {
+				sortOrder: "label-asc",
+				content: [
+				  { label: "JavaScript", value: 1 },
+				  { label: "Ruby", value: 2 },
+				  { label: "Java", value: 3 },
+				  { label: "C++", value: 2 },
+				  { label: "Objective-C", value: 6 }
+				]
+			  }
+			});		
+			
+			var svg = d3.select("div#chart")
+			.append(pie)
+			.attr("width", 500)
+			.attr("height", 100);
+			
 	}
 	
 	/*
