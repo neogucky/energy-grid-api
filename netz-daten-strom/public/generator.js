@@ -658,7 +658,7 @@ $(document).ready(function() {
 			}
 		}
 		
-		dpd.substation.put(station.id, {highVolatageIntakeInKWh : capacity} ,function(result, error) {
+		dpd.substation.put(station.id, {highVoltageIntakeInKWh : capacity} ,function(result, error) {
 		  // Do something
 		});
 	}
@@ -684,7 +684,7 @@ $(document).ready(function() {
 	function prepareChartAndShow(){
 		
 		for (key in stores['substation'].items){
-			chartData.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVolatageIntakeInKWh});
+			chartData.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVoltageIntakeInKWh});
 		}
 		renderD3Example();
 	}

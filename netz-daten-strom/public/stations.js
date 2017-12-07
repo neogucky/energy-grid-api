@@ -40,9 +40,9 @@ $(document).ready(function() {
 		var updatedRow = $('<tr class="station" id="' + message.id + '">')
 		    .append('<td class="type">Umspannwerk</td>')
             .append('<td class="name">' + message.name + '</td>')
-			.append('<td class="consumption">' + message.highVolatageIntakeInKWh + '</td>')
-			.append('<td class="consumptionPercent">' +   roundTwoPlaces((message.highVolatageIntakeInKWh / message.maxHighVolatageIntakeInKWh) * 100) + '%</td>')
-			.append('<td class="maxConsumption">' + message.maxHighVolatageIntakeInKWh + '</td>');
+			.append('<td class="consumption">' + message.highVoltageIntakeInKWh + '</td>')
+			.append('<td class="consumptionPercent">' +   roundTwoPlaces((message.highVoltageIntakeInKWh / message.maxHighVoltageIntakeInKWh) * 100) + '%</td>')
+			.append('<td class="maxConsumption">' + message.maxHighVoltageIntakeInKWh + '</td>');
 
 		$('#' +  message.id).html(updatedRow.contents());
 	}
