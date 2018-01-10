@@ -1,5 +1,3 @@
-var meldungen = ['OrtsNetzstation Dankwartsgrube überschreitet maximale Kapazität.', 'OrtsNetzstation Dankwartsgrube arbeitet wieder in den vorgegebenen Parametern. (Entwarnung)', 'Ortsnetzstation Universität sendet keine Daten mehr.', 'Ortsnetzstation Universität sendet wieder Daten (Entwarnung).', 'Blockheizkraftwerk Universität produziert unerwartet hohe Stromkapazitäten.', 'Ortsnetzstation Universität hat einen negativen Verbrauch.', 'Ortsnetzstation Universität kann überproduktion nicht mehr an das Mittelspannungsnetz leiten.',  'Blockheizkraftwerk Universität meldet bevorstehende Kernschmelze.' ];
-
 $(document).ready(function() {
 
 	//generator options
@@ -9,12 +7,18 @@ $(document).ready(function() {
 		
 		timeSequence : { /* in hours */
 			0 : 2, /* night */
-			8 : 1, /* day */
-			18 : 3, /* evening */
+			7 : 1, /* day */
+			17 : 3, /* evening */
 			22 : 2, /* night */
-			32 : 1, /* day */
-			42 : 4, /* evening_wm */
-			47 : 2, /* night */
+			31 : 1, /* day */
+			41 : 4, /* evening_wm */
+			46 : 2, /* night */
+			55 : 1, /* day */
+			65 : 3, /* evening */
+			70 : 2, /* night */
+			79 : 1, /* day */
+			89 : 3, /* evening */
+			94 : 2, /* night */
 		},
 		millisecondsPerMinute: 50, /* how many millisends a simulated minute takes (10 minutes per second) */
 		refreshRate: 2000, /* how often the values will be refreshed in milliseconds */
@@ -214,7 +218,6 @@ $(document).ready(function() {
 
 		//let the session know we still need it		
 		self.session.extendSession();
-		console.log(self.session.getSessionLifetime); //FIXME: show this in LOGIN Box
 		
 		if (!self.isRunning) {
 			$('#status').text('Connected - Simulation is paused');
@@ -234,11 +237,10 @@ $(document).ready(function() {
 		updateSubStations(currentState);
 		updateConnections();
 		
-		time +=  options.refreshRate / options.millisecondsPerMinute * 60000;
+		time += options.refreshRate / options.millisecondsPerMinute * 60000;
 		
 		setTimeout(simulationLoop, options.refreshRate );
 	}
-	
 	
 	//FIXME: We need a way to calculate stations with power-shortages. Maybe saving power demand in the generator and firing alarm messages when the demand is higher than the actual delivery.
 	function updateTransformerStations(currentState){
@@ -310,7 +312,6 @@ $(document).ready(function() {
 			var subStation = stores['substation'].items[key];
 			var connections = getConnections(subStation);
 			var totalCapacity = 0;
-			console.log(connections);
 
 			for (innerkey in connections){
 				totalCapacity += connections[innerkey].capacityKWh;
@@ -444,7 +445,7 @@ $(document).ready(function() {
 				
 		// O( n )
 		var connections = getConnections(connectedStation);
-		console.log(connections);
+
 		// O( k )
 		for (key in connections){			
 			calculatePathToSubstation( connectedStation, connections[key] );
@@ -561,16 +562,26 @@ $(document).ready(function() {
 		return Math.random() * (max - min) + min;
 	}
 	
-	function getCurrentSequence(hour, sequence){
-		lastID = sequence[0];
-		for (key in sequence){
-			if (key > hour ){
-				return lastID;
+	/*
+	 *	Finds the current state according to the szenarios time sequence
+	 *
+	 *	currentTime: in hours
+	 *	sequence: the timeSequence
+	 *
+	 *	return: currentState / the ID of the current state
+	 *
+	 */
+	function getCurrentSequence(currentTime, sequence){
+		var currentState = sequence[0];
+		
+		for (time in sequence){
+			if (time > currentTime ){
+				return currentState;
 			}
-			lastID = sequence[key];
+			currentState = sequence[time];
 		}
 		
-		return lastID;
+		return currentState;
 	}
 	
 	function getCurrentState(){
@@ -703,6 +714,7 @@ $(document).ready(function() {
 		 *	This is not using cool D3 data driven aproaches.
 		 */
 	
+		console.log(chartData);
 		var pieChart = new d3pie("chart", {
 		  header: {
 			title: {
