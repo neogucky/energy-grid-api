@@ -127,7 +127,8 @@ $(document).ready(function() {
 		}		
 	};
 	
-	var time = 1; //milliseconds since 00:00 on the first day
+	var globalTime = 0; //milliseconds since 00:00 on the first day 
+	var globalTimeOffset = 1514764800000; //01 January 2018
 	var isRunning = false;
 	var self = this;
 	var change = [];
@@ -225,10 +226,11 @@ $(document).ready(function() {
 			return; //if not running cancel loop
 		}
 		
-		var t = new Date( time );
+		var t = new Date( globalTime + globalTimeOffset );
 		$('#currentDateTime').text(t);
-				
+
 		var currentState = getCurrentState();
+
 		$('#currentState').text(currentState.name);
 		
 		createEnergyPathes();
@@ -237,7 +239,8 @@ $(document).ready(function() {
 		updateSubStations(currentState);
 		updateConnections();
 		
-		time += options.refreshRate / options.millisecondsPerMinute * 60000;
+		globalTime += options.refreshRate / options.millisecondsPerMinute * 60000;
+		console.log(globalTime);
 		
 		setTimeout(simulationLoop, options.refreshRate );
 	}
@@ -286,9 +289,7 @@ $(document).ready(function() {
 				default:
 					calculatedPowerConsumption =  -calculateUpdatedConsumption(station, currentState.values.powerConventional);
 			}			
-			
-			console.log(calculatedPowerConsumption);
-			
+					
 			if (powerStation.pathToSubstation.length == 0){
 				//if no substation is connected the powerStation will have no energy
 				//FIXME: does this even make sense?
@@ -319,7 +320,6 @@ $(document).ready(function() {
 			
 			updateSubStationCapacity(subStation, totalCapacity);
 		}
-		pieChart.updateProp("data.content", chartData);
 	}
 	
 	function updateConnections(){
@@ -586,9 +586,13 @@ $(document).ready(function() {
 	
 	function getCurrentState(){
 		//FIXME: hardcoding!!!
-		var currentHour = Math.floor(time / (1000 * 60 * 60)) % 48; //0 - 47 = 2 day loop
+		var timeSequenceNumber = Math.floor(globalTime / (1000 * 60 * 60)) % 48; //0 - 47 = 2 day loop
 		
-		var currentTimeSequence = getCurrentSequence(currentHour, options.timeSequence);
+		console.log(timeSequenceNumber);
+		
+		var currentTimeSequence = getCurrentSequence(timeSequenceNumber, options.timeSequence);
+		
+		console.log(options.states[currentTimeSequence]);
 		
 		return options.states[currentTimeSequence];
 	}
@@ -692,49 +696,6 @@ $(document).ready(function() {
 		});
 	}
 	
-	function prepareChartAndShow(){
-		
-		for (key in stores['substation'].items){
-			chartData.push({ id: stores['substation'].items[key].id ,label: stores['substation'].items[key].name, value : stores['substation'].items[key].highVoltageIntakeInKWh});
-		}
-		renderD3Example();
-	}
-	
-	function renderD3Example() {
-
-		/*
-		 * DO
-		 *		NOT
-		 *				DO
-		 +					IT
-		 +						LIKE
-		 +								THIS
-		 +										!!!!!!!!!!
-		 *
-		 *	This is not using cool D3 data driven aproaches.
-		 */
-	
-		console.log(chartData);
-		var pieChart = new d3pie("chart", {
-		  header: {
-			title: {
-			  text: "Energy consumption per sub station"
-			},
-			location: "pie-center"
-		  },
-		  size: {
-			pieInnerRadius: "80%"
-		  },
-		  data: {
-			sortOrder: "label-asc",
-			content: chartData
-		  }
-		});
-		
-		//after first render disable load animation:
-		pieChart.updateProp("effects.load", {effect: "none"});
-				
-	}
 	
 	/*
 	*	The following functions will hurt any reasonable programmers soul
