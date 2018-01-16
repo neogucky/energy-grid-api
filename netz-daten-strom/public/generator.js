@@ -132,10 +132,7 @@ $(document).ready(function() {
 	var isRunning = false;
 	var self = this;
 	var change = [];
-	
-	var chartData = []; //the data displayed in the chart
-	var pieChart; //global reference 
-	
+		
 	var isConnected = false;
 	var loggedinUser;
 	
@@ -171,9 +168,7 @@ $(document).ready(function() {
 		$('#status').text('Connected - waiting for login');
 		$('#status').css('color', '#925e00');
 		isConnected = true;
-		
-		prepareChartAndShow();
-		
+				
 		self.session = new DPDSession(stores['simulator']);
 		
 		//TODO: Add list view of current system status (stations, connections, active states, throughput, status)
@@ -664,15 +659,6 @@ $(document).ready(function() {
 	}
 	
 	function updateSubStationCapacity(station, capacity) {
-		
-		if (chartData.length > 0){
-			for (key in chartData){
-				if (chartData[key].id == station.id){
-					chartData[key].value = capacity;
-				}
-			}
-		}
-		
 		dpd.substation.put(station.id, {highVoltageIntakeInKWh : capacity} ,function(result, error) {
 		  // Do something
 		});
