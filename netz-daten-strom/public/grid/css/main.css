@@ -1,0 +1,245 @@
+﻿/*
+    This css file contains main colors for texts
+    backgrounds and form elements
+    Global Styles here
+*/
+
+
+/*
+    General
+*/
+body {
+    font-family: Calibri, Helvetica, Arial, Geneva, sans-serif;
+    background-color: #f2f2f2;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #667992;
+    }
+
+.sidebar {
+    background-color: #404040;
+}
+
+
+/*
+    Graphics
+*/
+.project-logo {
+    background: rgba(0, 0, 0, 0.00) url("../res/img/project_logo.png") no-repeat center center;
+    background-size: contain;
+}
+
+
+/*
+    Texts
+*/
+@media all and (min-width: 1000px) {
+    .welcome-title {
+        font-size: 30px;
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .welcome-title {
+        font-size: 3vw;
+        text-align: center;
+    }
+}
+
+
+/*
+    menu buttons on light background
+*/
+.menu-button-blue, .menu-button-green, .menu-button-black {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 2.5vh;
+    padding: 0.75em 1em;
+    border: 1px solid #f2f2f2;
+    text-align: center;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: #f2f2f2;
+    text-shadow: 0 -1px 0 rgb(91,129,17);
+}
+
+    .menu-button-blue:hover, .menu-button-green:hover, .menu-button-black:hover {
+        border: 1px solid #c6c6c6;
+        background: rgba(234,234,234,1);
+        -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,0.28);
+        box-shadow: 0 0 5px 1px rgba(0,0,0,0.28);
+        -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+        -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+        -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+        transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    }
+
+    .menu-button-blue:active, .menu-button-green:active, .menu-button-black:active {
+        background: #f2f2f2;
+        -webkit-box-shadow: 0 1px 4px 0 rgb(65,105,23) inset;
+        box-shadow: 0 1px 4px 0 rgb(65,105,23) inset;
+        -webkit-transition: none;
+        -moz-transition: none;
+        -o-transition: none;
+        transition: none;
+    }
+
+.menu-button-blue {
+    color: #197DC1;
+}
+
+.menu-button-green {
+    color: #6AAC2E;
+}
+
+.menu-button-black {
+    color: #000000;
+}
+
+/*
+    standard buttons for dark background
+*/
+.button-red-dark, .button-green-dark, .button-blue-dark, .button-grey-dark {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    margin: 0 20px;
+    padding: 5px 10px;
+    font-size: medium;
+    border: 1px solid #727272;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: #bcbcbc;
+    text-align: center;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    letter-spacing: 1px;
+    -webkit-box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.4);
+    box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.4);
+    -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+    -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+    -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+    transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+    .button-red-dark:hover, .button-green-dark:hover, .button-blue-dark:hover, .button-grey-dark:hover {
+        -webkit-box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
+        box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .button-red-dark:active, .button-green-dark:active, .button-blue-dark:active, .button-grey-dark:active {
+        -webkit-box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.5) inset;
+        box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.5) inset;
+        -webkit-transition: background 200ms cubic-bezier(0.42, 0, 0.58, 1) 1ms;
+        -moz-transition: background 200ms cubic-bezier(0.42, 0, 0.58, 1) 1ms;
+        -o-transition: background 200ms cubic-bezier(0.42, 0, 0.58, 1) 1ms;
+        transition: background 200ms cubic-bezier(0.42, 0, 0.58, 1) 1ms;
+    }
+
+/* Use for deleting purpose */
+.button-red-dark {
+    background: #666666;
+}
+
+    .button-red-dark:hover {
+        background: #664848;
+    }
+
+    .button-red-dark:active {
+        background: #662e2e;
+    }
+
+/* Use for saving purpose */
+.button-green-dark {
+    background: #666666;
+}
+
+    .button-green-dark:hover {
+        background: #4b6648;
+    }
+
+    .button-green-dark:active {
+        background: #2e6631;
+    }
+
+/* Use for loading purpose */
+.button-blue-dark {
+    background: #666666;
+}
+
+    .button-blue-dark:hover {
+        background: #3b4b89;
+    }
+
+    .button-blue-dark:active {
+        background: #3c4368;
+    }
+
+/* Use for standard purpose */
+.button-grey-dark {
+    background: #666666;
+}
+
+    .button-grey-dark:hover {
+        background: #676767;
+    }
+
+    .button-grey-dark:active {
+        background: #606060;
+    }
+
+
+/*
+    input field
+*/
+.text-input {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 7px 10px;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: rgba(58,58,58,1);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252,252,252,1);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+    box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.66);
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+    .text-input:hover {
+        border: 1px solid #a3a3a3;
+        background: rgba(255,255,255,1);
+        -webkit-transition: all 100ms cubic-bezier(0.42, 0, 0.58, 1);
+        -moz-transition: all 100ms cubic-bezier(0.42, 0, 0.58, 1);
+        -o-transition: all 100ms cubic-bezier(0.42, 0, 0.58, 1);
+        transition: all 100ms cubic-bezier(0.42, 0, 0.58, 1);
+    }
+
+    .text-input:focus {
+        border: 1px solid #197DC1;
+        -webkit-box-shadow: 4px 4px 4px 0 rgba(0,0,0,0.2) inset;
+        box-shadow: 4px 4px 4px 0 rgba(0,0,0,0.2) inset;
+        -webkit-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+        -moz-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+        -o-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+        transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+    }

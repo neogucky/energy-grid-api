@@ -1,0 +1,3 @@
+/*
+    This script contains main functionalities
+*/

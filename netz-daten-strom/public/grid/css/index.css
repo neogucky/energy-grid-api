@@ -1,0 +1,9 @@
+﻿/*
+    The stylesheet for the index page
+*/
+
+.project-logo {
+    width: 70vw;
+    height: 40vh;
+    margin: 10vh 15vw 5vw 15vw;
+}

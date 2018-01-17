@@ -1,0 +1,85 @@
+/*
+    The stylesheet for the simulation page
+*/
+
+/*
+    General
+*/
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+/*
+	Texts
+*/
+@media all and (min-width: 1000px) {
+	.text-medium {
+		font-size: 16px;
+	}
+}
+
+@media all and (max-width: 1000px) {
+    .text-medium {
+	font-size: 1.5vw;
+    }
+}
+
+/*
+	Navigationbar
+*/
+#navbar {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	right: 0%;
+	padding-bottom: 0.5vw;
+	width: 100%;
+	height: 4%;
+}
+
+#close-btn{
+	margin-top: 0.8vh;
+	width: 1vw;
+	height: 1vw;
+	background: url("../res/img/poweroff.png") no-repeat;
+	background-size: contain;
+}
+
+#close-btn:hover {
+    margin-top: 0.8vh;
+    width: 1vw;
+    height: 1vw;
+    background: url("../res/img/poweroff_hover.png") no-repeat;
+	background-size: contain;
+}
+
+#link-btn{
+	width: 0.1vw;
+	margin-left:2vw;
+}
+
+#time {
+  text-align: right;
+  color: white;
+  margin-top: 0.5vw;
+  margin-right:2vw;
+}
+
+/*
+	Grid
+*/
+#container {
+	position: absolute;
+	left: 0%;
+	right: 0%;
+	top: 4%;
+	bottom: 0%;
+	width: 100%;
+	height: 96%;
+	background-color: #f2f2f2;
+	overflow: hidden;
+}

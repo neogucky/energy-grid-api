@@ -1,0 +1,126 @@
+/*
+    The stylesheet for the scenarios page
+*/
+
+/*
+    General
+*/
+.line { 
+    border: 0; 
+    height: 1px;
+    background-image: linear-gradient(to right, #444444, #a4a4a4, #444444);
+}
+
+.line-selected { 
+    border: 0; 
+    height: 1px;
+    background-image: linear-gradient(to right, #26430b, #46751b, #26430b);
+}
+
+.scroll-box {
+	width: 65vw;
+    height: 45vh;
+	overflow-y: auto;
+	border: 2px solid black;
+	border-radius: 6px;
+	margin: 2vh 17.5vw 1vh 17.5vw;
+}
+
+.box {
+	border: 1px solid black;
+	background: linear-gradient(to bottom, #c1c1c1 0%, #c1c1c1 50%, #f2f2f2 0%, #f2f2f2 50%);
+	margin: 1.5vh 1vw 1.5vh 1vw;
+	border-radius: 6px;
+}
+
+.box-selected {
+	border: 1px solid #26430b;
+	background: linear-gradient(to bottom, #90c864 0%, #90c864 50%, #bce39e 0%, #bce39e 50%);
+	margin: 1.5vh 1vw 1.5vh 1vw;
+	border-radius: 6px;
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	float: left;
+}
+
+.deselect ::selection {
+    background: transparent;
+    color: inherit;
+}
+.deselect ::-moz-selection {
+    background: transparent;
+    color: inherit;
+}
+.deselect {
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/*
+    Graphics
+*/
+.project-logo {
+    width: 70vw;
+    height: 28vh;
+    margin: 2vh 15vw 1vh 15vw;
+}
+
+/*
+	Texts
+*/
+.welcome-title {
+         margin: 4vh 15vw 0vh 15vw;
+    }
+
+@media all and (min-width: 1000px) {
+	.text-medium {
+		font-size: 22px;
+		margin: 1vh 1vw 1vh 1vw;
+	}
+}
+
+@media all and (max-width: 1000px) {
+    .text-medium {
+	font-size: 2.2vw;
+	margin: 1vh 1vw 1vh 1vw;
+    }
+}
+
+/*
+	Buttons
+*/
+.menu-button-green {
+	font-size: 1.2vw;
+	margin: 1vh 40vw 1vh 40vw;
+	width: 13.5vw;
+	border: #6aac2e 1px solid;
+	border-radius: 6px;
+}
+
+#close-btn{
+	margin-top: 1.2vh;
+	width: 1vw;
+	height: 1vw;
+	background: url("../res/img/backSymbol_black.png") no-repeat;
+	background-size: 100% 100%;
+}
+
+#close-btn:hover {
+    margin-top: 1.2vh;
+    width: 1vw;
+    height: 1vw;
+    background: url("../res/img/backSymbol_hover.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+#link-btn{
+	width: 0.1vw;
+	margin-left:2vw;
+}

@@ -1,0 +1,3 @@
+/*
+    This script contains functionalities for the index page
+*/

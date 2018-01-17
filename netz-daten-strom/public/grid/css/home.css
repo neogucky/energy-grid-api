@@ -1,0 +1,59 @@
+/*
+    The stylesheet for the home page
+*/
+
+/*
+    General
+*/
+.center {
+	text-align: center;
+}
+
+/*
+    Graphics
+*/
+.project-logo {
+    width: 70vw;
+    height: 32vh;
+    margin: 3vh 15vw 3vh 15vw;
+}
+
+/*
+	Texts
+*/
+.welcome-title {
+        margin: 6vh 15vw 0vh 15vw;
+    }
+
+@media all and (min-width: 1000px) {
+	.text-medium {
+		font-size: 22px;
+		margin: 0vh 15vw 2vh 15vw;
+	}
+}
+
+@media all and (max-width: 1000px) {
+    .text-medium {
+	font-size: 2.2vw;
+	margin: 0vh 15vw 2vh 15vw;
+    }
+}
+
+/*
+	Button
+*/
+.menu-button-green {
+	font-size: 1.2vw;
+	margin: 2vh 40vw 0vh 40vw;
+	width: 13.5vw;
+	border: #6aac2e 1px solid;
+	border-radius: 6px;
+}
+
+.menu-button-blue {
+	font-size: 1.2vw;
+	margin: 2vh 40vw 0vh 40vw;
+	width: 13.5vw;
+	border: #197dc1 1px solid;
+	border-radius: 6px;
+}

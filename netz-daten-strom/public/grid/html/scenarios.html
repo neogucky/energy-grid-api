@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- On this page you can choose the different scenarios given from the api -->
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="author" content="Bachelorprojekt 2017/18">
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../res/img/favicon.png">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/scenarios.css">
+
+    <script src="../js/scenarios.js"></script>
+
+    <title>Netzleitsystem-Testumgebung - Szenarien</title>
+
+</head>
+
+
+<body onload="onLoad()">
+	<!-- Header -->
+	<div id="header">
+		<!-- Close button -->
+	  	<div class="left">
+       		<div id="link-btn">
+       		<a href="home.html">
+       			<div id="close-btn"></div>
+       		</a>
+       		</div>
+       	</div>
+	
+	<h1 class="welcome-title">
+		Willkommen bei der prototypischen Netzleitsystem-Testumgebung
+	</h1>
+	</div>
+	
+	<div class="project-logo"></div>
+	
+	<div class="text-medium center">
+		Um die Testumgebung zu starten wählen Sie bitte zunächst ein Szenario aus.
+	</div>
+	
+	<!-- Scenario list -->
+	<div class="scroll-box" id="scenarioList">
+	</div>
+
+	<!-- Button -->
+	<div class="center">
+	<a href="#" id="btn0" onclick="getSelectedElement()">
+	<button type="submit" class="menu-button-green center">
+     	<span>Simulation starten</span>
+	</button>
+	</a>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Here you should be able to change colors in the diagram -->
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="author" content="Bachelorprojekt 2017/18">
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../res/img/favicon.png">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/settings.css">
+
+
+    <script src="../frameworks/jquery.js"></script>
+    <script src="../res/img/colorPicker.js"></script>
+    <script src="../js/settings.js"></script>
+
+
+    <script type="text/javascript" src="http://localhost/dpd.js"></script>
+    <script type="text/javascript" src="http://localhost/store.js"></script>
+    <script type="text/javascript" src="http://localhost/netzDatenStrom.js"></script>
+
+    <!--Links for API running in the university (temporally commented because I develop with the docker image)
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/store.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/netzDatenStrom.js"></script>-->
+
+    <script src="../js/api.js"></script>
+    <script src="../js/home.js"></script>
+
+    <title>Netzleitsystem-Testumgebung - Einstellungen</title>
+
+</head>
+
+
+<body>
+    <!-- This is the container for the navbar -->
+    <div id="navbar" class="sidebar">
+       <div id="backButtonLink"><a href="home.html"><div id="backButton"></div></a></div>
+    </div>
+
+
+    <!-- Dialog for saving a colorsheme-->
+    <div id="saveDialog" class="dialog">
+        <div class="dialogTitle"><p>Farbschema speichern</p></div>
+        <div class="dialogContent">
+            <p>Bitte geben Sie einen Namen für das Farbschema an:</p>
+            <input type="text" name="SchemeName" id="schemeName" class="text-input">
+            <br>
+            <div class="dialogButtons">
+                <button id="dialogSaveSchemeBtn" class="button-green-dark">Speichern</button>
+                <button id="dialogAbortSaveBtn" class="button-red-dark">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog for loading a colorsheme-->
+    <div id="loadDialog" class="dialog">
+        <div class="dialogTitle"><p>Farbschema laden</p></div>
+        <div class="dialogContent">
+            <p>Bitte wählen Sie ein Farbschema aus:</p>
+            <select name="SelectSchemeName" id="schemeNameSelect">
+              
+            </select>
+          
+            <br>
+            <div class="dialogButtons">
+                <button id="dialogLoadSchemeBtn" class="button-blue-dark">Laden</button>
+                <button id="dialogAbortLoadBtn" class="button-red-dark">Abbrechen</button>
+            </div>
+        </div>
+    </div>	
+
+    <div id="diasableBackground"></div>
+
+
+
+    <!--This is the container for the energy grid. Leave this empty.-->
+    <div id="grid-container">
+    	<!--
+    	<iframe id="iFrameGrid" src="grid.html?s=1" height="100%" width="100%"></iframe>
+		-->
+    </div>
+
+    <!--This is the container for the sidebar-->
+    <div id="sidebar-container" class="sidebar">
+        <!-- Title -->
+        <div id="heading">
+            <h1>Einstellungen</h1>
+        </div>
+        <!-- Container for the current status of the selected element -->
+        <div id="previewOfElement">
+            <div id="selectedElement"><p id="selectedElementP-tag">Station</p></div>
+            <div id="currentColor"></div>
+            <div id="standardStation"><p>Unversorgt</p></div>
+            <div id="standardStationColor"></div>
+            <!--
+            <div id="standardConnection"><p>unversorgte Verbindung</p></div>
+            <div id="standardConnectionColor"></div>
+            -->
+            <div id="disabledConnection"><p>Gesperrte Verbindung</p></div>
+            <div id="disabledConnectionColor"></div>
+            <div id="backgroundGrid"><p>Hintergrund</p></div>
+            <div id="backgroundGridnColor"></div>
+        </div>
+
+
+        <!-- Container for the colorpicker -->
+        <div id="colorpicker">
+            <!-- Colorcircle -->
+            <div id="containerCanvas">
+                <canvas id="myCanvas" height="150" width="150"></canvas>
+            </div>
+            <!-- Inputfields for rgb-Values-->
+            <div id="colorSliders">
+                <p id="rbgLabelR" class="rbgLabel">
+                    R
+                    <span class="tooltiptext">Farbintensität Rot</span>
+                </p><input id="rgb-Red" type="range" min="0" max="255" name="red" class="rgbInput " value="100">
+                <input id="rgb-Red-value" type="number" min="0" max="255" class="rgbValue text-input" value="100">
+                <br>
+                <p id="rbgLabelG" class="rbgLabel">
+                    G
+                    <span class="tooltiptext">Farbintensität Grün</span>
+                </p><input id="rgb-Green" type="range" min="0" max="255" name="green" class="rgbInput" value="100">
+                <input id="rgb-Green-value" type="number" min="0" max="255" class="rgbValue text-input" value="100">
+                <br>
+                <p id="rbgLabelB" class="rbgLabel">
+                    B
+                    <span class="tooltiptext">Farbintensität Blau</span>
+                </p><input id="rgb-Blue" type="range" min="0" max="255" name="blue" class="rgbInput" value="100">
+                <input id="rgb-Blue-value" type="number" min="0" max="255" class="rgbValue text-input" value="100">
+                <br>
+                <p id="rbgLabelH" class="rbgLabel">
+                    H
+                    <span class="tooltiptext">Helligkeit</span>
+                </p><input id="rgb-Alpha" type="range" min="0.0" max="1.0" step="0.01" name="contrast" class="rgbInput" value="1">
+                <input id="rgb-Alpha-value" type="number" min="0.0" max="1.0" step="0.01" class="rgbValue text-input" value="1">
+                <br>
+                <p id="rbgLabelS" class="rbgLabel">
+                    S
+                    <span class="tooltiptext">Sättigung</span>
+                </p><input id="rgb-Saturation" type="range" min="0.0" max="1.0" step="0.01" name="contrast" class="rgbInput" value="1">
+                <input id="rgb-Saturation-value" type="number" min="0.0" max="1.0" step="0.01" class="rgbValue text-input" value="1">
+                <br>
+                <p id="rbgLabelHex">HEX-Code</p><input id="rgb-Hex-value" class="text-input" type="text">
+            </div>
+        </div>
+        <br>
+        <!-- Container for the reset-buttons -->
+        <div id="resetButtons">
+            <button id="resetCurrentElement" class="button-red-dark">Zurücksetzen</button>
+            <button id="resetAllElements" class="button-red-dark">Alles zurücksetzen</button>
+        </div>
+        <!-- Container for colorsheme-buttons -->
+        <div id="schemeButtons">
+            <button id="saveScheme" class="button-green-dark">Farbschema speichern</button>
+            <button id="loadScheme" class="button-blue-dark">Farbschema laden</button>
+        </div>
+    </div>
+
+    
+
+</body>
+
+</html>

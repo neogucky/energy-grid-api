@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!-- The home page -->
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="author" content="Bachelorprojekt 2017/18">
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../res/img/favicon.png">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/home.css">
+
+    <script src="../frameworks/jquery.js"></script>
+    <script src="../frameworks/d3.js"></script>
+
+    <script scr="../js/api.js"></script>
+
+    <!--Links for local running API-->
+    <script type="text/javascript" src="http://localhost/dpd.js"></script>
+    <script type="text/javascript" src="http://localhost/store.js"></script>
+    <script type="text/javascript" src="http://localhost/netzDatenStrom.js"></script>
+    <!--Links for API running in the university (temporally commented because I develop with the docker image)
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/store.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/netzDatenStrom.js"></script>-->
+    <script type="text/javascript" src="../js/api.js"></script>
+    <script src="../js/home.js"></script>
+
+    <title>Netzleitsystem-Testumgebung - Home</title>
+</head>
+
+<body>
+    <header id="HomeHeader">
+        <h1 class="welcome-title">Willkommen in der prototypischen Netzleitsystem Testumgebung</h1>
+    </header>
+
+    <div id="HomeLogo" class="project-logo"></div>
+
+    <section class="text-medium center" id="HomeText">
+        <p>Um die Testumgebung zu starten, wählen Sie bitte ein Szenario aus.</p>
+    </section>
+
+    <nav id="HomeNav">
+        <ul style="list-style-type:none;">
+            <li>
+            	<div class="center">
+            	<form action="simulation.html">
+     			<input type="submit" class="menu-button-green center" value="Standard Szenario starten" />
+				</form>
+				</div>
+            </li>
+
+            <li>
+				<div class="center">
+            	<form action="scenarios.html">
+     			<input type="submit" class="menu-button-green center" value="Szenario ausw&auml;hlen" />
+				</form>
+				</div>
+            </li>
+
+            <li>
+            	<div class="center">
+            	<form action="settings.html">
+     			<input type="submit" class="menu-button-blue center" value="Einstellungen" />
+				</form>
+				</div>
+            </li>
+
+        </ul>
+    </nav>
+</body>
+</html>
