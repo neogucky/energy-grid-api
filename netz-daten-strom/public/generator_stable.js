@@ -131,7 +131,7 @@ $(document).ready(function() {
 			
 			
 			//if no exception exists use default setting
-			calculatedStationConsumption = calculateUpdatedConsumption(station);
+			calculatedStationConsumption = station.needInKWh;
 
 		
 			if (transformerStation.pathToSubstation.length == 0){

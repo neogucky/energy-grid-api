@@ -48,6 +48,14 @@
 			"required": false,
 			"id": "maxConsumptionInKWh",
 			"order": 5
+		},
+		"needInKWh": {
+			"name": "needInKWh",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "needInKWh",
+			"order": 6
 		}
 	}
 }

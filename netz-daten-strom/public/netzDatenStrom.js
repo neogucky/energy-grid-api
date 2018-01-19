@@ -48,24 +48,26 @@ var german = {
 /*
 *	The parent class of all station types 
 */
-function Station(capacity, maxCapacity, id) {
+function Station(capacity, maxCapacity, needInKWh, id) {
     this.capacity = capacity;
 	this.maxCapacity = maxCapacity;
+	this.needInKWh = needInKWh;
 	this.id = id;
 }
 
 Station.prototype = {
 	capacity : null,
 	maxCapacity : null,
+	needInKWh : null, /* FIXME: this is a helper so that transformerstations know their need even when disconnected */
 	id: null
 };
 
 Station.fromPowerStation = function(powerstation) {
-    return new this(-powerstation.consumptionInKWh, -powerstation.maxConsumptionInKWh, powerstation.id);
+    return new this(-powerstation.consumptionInKWh, -powerstation.maxConsumptionInKWh, 0, powerstation.id);
 };
 Station.fromTransformerStation = function(transformerstation) {
-    return new this(transformerstation.consumptionInKWh, transformerstation.maxConsumptionInKWh, transformerstation.id);
+    return new this(transformerstation.consumptionInKWh, transformerstation.maxConsumptionInKWh, transformerstation.needInKWh, transformerstation.id);
 };
 Station.fromSubStation = function(substation) {
-    return new this(substation.highVolatageIntakeInKWh, substation.maxHighVolatageIntakeInKWh, substation.id);
+    return new this(substation.highVolatageIntakeInKWh, substation.maxHighVolatageIntakeInKWh, 0, substation.id);
 };
