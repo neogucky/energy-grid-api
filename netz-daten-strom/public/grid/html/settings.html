@@ -15,23 +15,16 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/settings.css">
 
+    <script src="../js/home.js"></script>
 
     <script src="../frameworks/jquery.js"></script>
     <script src="../res/img/colorPicker.js"></script>
     <script src="../js/settings.js"></script>
 
-
-    <script type="text/javascript" src="http://localhost/dpd.js"></script>
-    <script type="text/javascript" src="http://localhost/store.js"></script>
-    <script type="text/javascript" src="http://localhost/netzDatenStrom.js"></script>
-
-    <!--Links for API running in the university (temporally commented because I develop with the docker image)
     <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
     <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/store.js"></script>
-    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/netzDatenStrom.js"></script>-->
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/netzDatenStrom.js"></script>
 
-    <script src="../js/api.js"></script>
-    <script src="../js/home.js"></script>
 
     <title>Netzleitsystem-Testumgebung - Einstellungen</title>
 
@@ -65,9 +58,9 @@
         <div class="dialogContent">
             <p>Bitte wählen Sie ein Farbschema aus:</p>
             <select name="SelectSchemeName" id="schemeNameSelect">
-              
+                <option>Test</option>
             </select>
-          
+            <input type="file" name="" id="loadTxtFile">
             <br>
             <div class="dialogButtons">
                 <button id="dialogLoadSchemeBtn" class="button-blue-dark">Laden</button>
@@ -97,12 +90,10 @@
         <div id="previewOfElement">
             <div id="selectedElement"><p id="selectedElementP-tag">Station</p></div>
             <div id="currentColor"></div>
-            <div id="standardStation"><p>Unversorgt</p></div>
+            <div id="standardStation"><p>Unversorgte Station</p></div>
             <div id="standardStationColor"></div>
-            <!--
             <div id="standardConnection"><p>unversorgte Verbindung</p></div>
             <div id="standardConnectionColor"></div>
-            -->
             <div id="disabledConnection"><p>Gesperrte Verbindung</p></div>
             <div id="disabledConnectionColor"></div>
             <div id="backgroundGrid"><p>Hintergrund</p></div>
@@ -114,7 +105,7 @@
         <div id="colorpicker">
             <!-- Colorcircle -->
             <div id="containerCanvas">
-                <canvas id="myCanvas" height="150" width="150"></canvas>
+                <canvas id="myCanvas" height="200" width="200"></canvas>
             </div>
             <!-- Inputfields for rgb-Values-->
             <div id="colorSliders">
