@@ -30,3 +30,9 @@ function checkTime(i) {
 function onLoad() {
     document.getElementById("grid-container").innerHTML='<object id="container" type="type/html" data="grid.html" ></object>';
 }
+
+function onCloseRequest() {
+    if (confirm("Möchten Sie die Simulation wirklich beenden?")) {
+        window.history.back();
+    }
+}

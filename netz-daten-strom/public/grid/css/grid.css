@@ -276,10 +276,10 @@ body {
 }
 
 .highlightedConnection1 {
-    stroke-dasharray: 15 !important;
+    stroke-dasharray: 10 !important;
     stroke-dashoffset: 0;
     stroke-width: 5px !important;
-    animation: dash 0.5s infinite !important;
+    animation: dash 1s infinite !important;
 }
 
 .highlightedConnection2 {

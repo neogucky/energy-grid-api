@@ -22,24 +22,20 @@ Api.prototype.initializeAPI = function (callback) {
     this.stores['substation'] = new DPDStore('substation', function () { self.stores['powerstation'].connect(); });
     this.stores['powerstation'] = new DPDStore('powerstation', function () { self.stores['connection'].connect(); });
     this.stores['connection'] = new DPDStore('connection', function () { self.updateAPIData(callback); });
-    // Update listener
-    this.stores['transformerstation'].setUpdateListener(function () { self.onUpdateData(self) });
-    this.stores['substation'].setUpdateListener(function () { self.onUpdateData(self) });
-    this.stores['powerstation'].setUpdateListener(function () { self.onUpdateData(self) });
-    this.stores['connection'].setUpdateListener(function () { self.onUpdateData(self) });
     //start the chain
     this.stores['transformerstation'].connect();
 };
 
 // Update the disrupted state of the connection in the api
 Api.prototype.commitSwitchedConnection = function (connectionId) {
-    this.stores['connection'].put(connectionId, { disrupted: !this.stores['connection'].items[connectionId].disrupted }, function (a, b) { if (b) { console.log(b); } });
+    this.stores['connection'].put(connectionId, { disrupted: !this.stores['connection'].items[connectionId].disrupted }, function (a, b) {if (b) { console.log(b); } });
 };
 
 // Update Routine
 Api.prototype.onUpdateData = function (self) {
     // Check first, if this is not busy
     if (self.isUpdating) {
+        console.log("blocked");
         return;
     }
     self.isUpdating = true;
@@ -52,8 +48,18 @@ Api.prototype.onUpdateData = function (self) {
         self.updateAPIData(renderGrid);
         self.isUpdating = false;
     } else {
-        // Else, only update only the grid
-        self.updateStationColors(recolorGrid);
+        var needsRecoloring = false;
+        for (var i = 0; i < self.edges.length; i++) {
+            if (self.edges[i].data.disrupted != this.stores['connection'].items[self.edges[i].id].disrupted) {
+                needsRecoloring = true;
+                self.edges[i].data.disrupted = this.stores['connection'].items[self.edges[i].id].disrupted;
+            }
+        }
+        if (needsRecoloring) {
+            self.updateStationColors(recolorGrid);
+        } else {
+            updatePowers();
+        }
     }
     // Be unbusy
     self.isUpdating = false;
@@ -61,6 +67,11 @@ Api.prototype.onUpdateData = function (self) {
 
 // Sets up internal object structure
 Api.prototype.updateAPIData = function (callback) {
+    // Update listener
+    this.stores['transformerstation'].setUpdateListener(function () { self.onUpdateData(self) });
+    this.stores['substation'].setUpdateListener(function () { self.onUpdateData(self) });
+    this.stores['powerstation'].setUpdateListener(function () { self.onUpdateData(self) });
+    this.stores['connection'].setUpdateListener(function () { self.onUpdateData(self); });
     // Store the data temporally, after everything is done it will be applied
     var tempNodes = [], tempConnections = [], self = this;
     // Get data from API

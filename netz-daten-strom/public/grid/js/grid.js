@@ -73,7 +73,9 @@ function toggleDialog(nodeId) {
             $("#connection-" + highlightedConnectionId + "-1").addClass("highlightedConnection2");
             $("#connection-" + highlightedConnectionId + "-2").addClass("highlightedConnection3");
         } else {
-            closeDialog(openedDialog);
+            if (openedDialog) {
+                closeDialog(openedDialog);
+            }
             openedDialog = null;
         }
     } else {
@@ -93,6 +95,7 @@ function toggleDialog(nodeId) {
 function recolorGrid() {
     // Update local field of used colors
     colors = JSON.parse(localStorage.getItem('colors'));
+    $(".stationLabel").css("color", getLabelColor());
     // Update body
     d3.select("body").style("background", colors["bg"]);
     // Update grid elements
@@ -166,8 +169,8 @@ function updateStationPowers() {
     });
     // Update Substations
     for (var key in api.stores['substation'].items) {
-        $("#" + key + "-energyConsumption").text(api.stores['substation'].items[key].highVolatageIntakeInKWh + " kWh  /  " + api.stores['substation'].items[key].maxHighVolatageIntakeInKWh + " kWh");
-        if (Math.abs(api.stores['substation'].items[key].highVolatageIntakeInKWh) > Math.abs(api.stores['substation'].items[key].maxHighVolatageIntakeInKWh)) {
+        $("#" + key + "-energyConsumption").text(api.stores['substation'].items[key].highVoltageIntakeInKWh + " kWh  /  " + api.stores['substation'].items[key].maxHighVoltageIntakeInKWh + " kWh");
+        if (Math.abs(api.stores['substation'].items[key].highVoltageIntakeInKWh) > Math.abs(api.stores['substation'].items[key].maxHighVoltageIntakeInKWh)) {
             $("#" + key + "substation").css("background", "red");
             $("#symbol" + key).addClass("overloadSubstation");
         } else {
@@ -213,7 +216,7 @@ function updateConnectionPowers() {
 function renderGrid() {
     // Reset Start conditions
     $("body").empty();
-    $("body").append('<div id="svg-container">');
+    $("body").append('<div onClick="toggleDialog(null)" id="svg-container">');
     document.getElementById("svg-container").innerHTML = '<svg width= "100%" height= "100%" viewBox= "0 0 100 100" preserveAspectRatio= "none" ></svg>';
     // Reset status
     openedDialog = null;
@@ -235,6 +238,18 @@ function renderStations() {
         .selectAll(".stationContainer")
         .data(api.nodes)
         .enter();
+
+    enterSelection.append("div")
+        .attr("class", "stationLabel")
+        .text(function (d) { return d.data.name })
+        .style("text-align", "center")
+        .style("font-size", "1vw")
+        .style("color", getLabelColor())
+        .style("width", (100 / api.width) + "%")
+        .style("height", (100 / api.height) + "%")
+        .style("top", function (d) { return ((100 / api.height) * (d.y + 0.7)) + "%"; })
+        .style("left", function (d) { return ((100 / api.width) * d.x) + "%"; })
+        .style("position", "absolute");
     // Append a container, where the station is gonna be placed and then append the station
     enterSelection.append("div")
         .on("click", function (d) { return toggleDialog(d.id); })
@@ -245,11 +260,13 @@ function renderStations() {
         .style("top", function (d) { return ((100 / api.height) * d.y) + "%"; })
         .style("left", function (d) { return ((100 / api.width) * d.x) + "%"; })
         .style("position", "absolute")
-        .append(function (d) { return getStation(d); });
+        .append(function (d) { return getStation(d); })
+        
     // And append the station dialog to the selection
     enterSelection.append(function (d) { return getStationDialog(d) });
 
-    var d = document;
+    
+    
     api.nodes.forEach(function (node) {
         $('#connections' + node.id).on('mouseenter', 'option', function (e) {
             if (highlightedConnectionId) {
@@ -273,7 +290,7 @@ function renderStations() {
                 $("#connection-" + highlightedConnectionId + "-2").removeClass("highlightedConnection3");
             }
             highlightedConnectionId = $('#connections' + node.id).val();
-            selectionHovered(node.id, this.value);
+            selectionHovered(node.id, highlightedConnectionId);
             $("#connection-" + highlightedConnectionId + "-0").addClass("highlightedConnection1");
             $("#connection-" + highlightedConnectionId + "-1").addClass("highlightedConnection2");
             $("#connection-" + highlightedConnectionId + "-2").addClass("highlightedConnection3");
@@ -423,13 +440,13 @@ function getConnectionColors(connection, index) {
     // Else merge alternately the colors of the connected stations
     var colors1 = getStationColors(station1);
     var colors2 = getStationColors(station2);
-    var colorList = {};
+    var colorList = [];
     for (var i = 0; i < colors1.length || i < colors1.length; i = i) {
-        if (colors1[i]) {
+        if (colors1[i] && $.inArray(colors1[i], colorList) == -1) {
             colorList[i] = colors1[i];
             i++;
         }
-        if (colors2[i]) {
+        if (colors2[i] && $.inArray(colors2[i], colorList) == -1) {
             colorList[i] = colors2[i];
             i++
         }
@@ -441,6 +458,19 @@ function getConnectionColors(connection, index) {
         return [colors["uc"], "uc", 1];
     } else {
         return [colorList[index], colorList[index], 0];
+    }
+}
+
+function getLabelColor() {
+    var background = colors["bg"].toUpperCase().slice(1);
+    var r = parseInt(background.slice(0, 2), 16);
+    var g = parseInt(background.slice(2, 4), 16);
+    var b = parseInt(background.slice(4, 6), 16);
+    var brightness = Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068) / 255;
+    if (brightness >= 0.5) {
+        return "#111111";
+    } else {
+        return "#eeeeee";
     }
 }
 
