@@ -17,7 +17,7 @@
     <title>Netzleitsystem-Testumgebung - Simulation</title>
 
 </head>
-<body onload="startTime(); onLoad();">
+<body onload="startTime()">
 
     <!-- Navigationbar -->
     <div id="navbar" class="sidebar">
@@ -35,7 +35,9 @@
     </div>
 
     <!--This is the container for the energy grid. Leave this empty.-->
-    <div id="grid-container"></div>
+    <div id="grid-container">
+        <iframe id="container" src="grid.html" height="100%" width="100%"></iframe>
+    </div>
 
 </body>
 </html>
