@@ -12,7 +12,7 @@ $(document).ready(function () {
     if (localStorage.getItem('colors') === null) {
         api.initializeAPI(getDefaultColors);
     } else {
-        $(".center").css("display", "block");
+        $(".center").css("display", "inline");
     }
 });
 
@@ -44,7 +44,7 @@ function getDefaultColors() {
     colors["ds"] = "#aaaaaa";
     // Write it as a string in the store
     localStorage.setItem("colors", JSON.stringify(colors));
-    $(".center").css("display", "block");
+    $(".center").css("display", "inline");
 }
 
 // Get a random Hex Color (yes its ugly but it supports infinite colors)

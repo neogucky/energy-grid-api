@@ -148,6 +148,9 @@ function recolorConnections() {
 
 // Updates the power texts in the dialogs and the overload styles
 function updatePowers() {
+    if (!simulation) {
+        return;
+    }
     updateStationPowers();
     updateConnectionPowers();
 }

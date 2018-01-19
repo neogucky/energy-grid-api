@@ -15,16 +15,17 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/settings.css">
 
-    <script src="../js/home.js"></script>
 
     <script src="../frameworks/jquery.js"></script>
     <script src="../res/img/colorPicker.js"></script>
     <script src="../js/settings.js"></script>
 
-    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
-    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/store.js"></script>
-    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/netzDatenStrom.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2400/dpd.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2400/store.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2400/netzDatenStrom.js"></script>
 
+    <script src="../js/api.js"></script>
+    <script src="../js/home.js"></script>
 
     <title>Netzleitsystem-Testumgebung - Einstellungen</title>
 
@@ -37,6 +38,7 @@
        <div id="backButtonLink"><a href="home.html"><div id="backButton"></div></a></div>
     </div>
 
+    
 
     <!-- Dialog for saving a colorsheme-->
     <div id="saveDialog" class="dialog">
@@ -58,9 +60,9 @@
         <div class="dialogContent">
             <p>Bitte wählen Sie ein Farbschema aus:</p>
             <select name="SelectSchemeName" id="schemeNameSelect">
-                <option>Test</option>
+              
             </select>
-            <input type="file" name="" id="loadTxtFile">
+          
             <br>
             <div class="dialogButtons">
                 <button id="dialogLoadSchemeBtn" class="button-blue-dark">Laden</button>
@@ -69,15 +71,29 @@
         </div>
     </div>	
 
+    <div id="saveDialogNameDouble" class="dialog">
+        <div class="dialogTitle"><p>Achtung</p></div>
+        <div class="dialogContent">
+            <p>Ein Farbschema mit diesem Namen existiert bereits. Möchten Sie dieses überschreiben?</p>
+            
+            <br>
+            <div class="dialogButtonsOverride">
+                <button id="dialogSaveSchemeName" class="button-green-dark">Überschreiben</button>
+                <button id="dialogAbortSaveName" class="button-red-dark">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+
     <div id="diasableBackground"></div>
 
 
 
     <!--This is the container for the energy grid. Leave this empty.-->
     <div id="grid-container">
-    	<!--
+    	
     	<iframe id="iFrameGrid" src="grid.html?s=1" height="100%" width="100%"></iframe>
-		-->
+		
     </div>
 
     <!--This is the container for the sidebar-->
@@ -90,10 +106,12 @@
         <div id="previewOfElement">
             <div id="selectedElement"><p id="selectedElementP-tag">Station</p></div>
             <div id="currentColor"></div>
-            <div id="standardStation"><p>Unversorgte Station</p></div>
+            <div id="standardStation"><p>Unversorgt</p></div>
             <div id="standardStationColor"></div>
+            <!--
             <div id="standardConnection"><p>unversorgte Verbindung</p></div>
             <div id="standardConnectionColor"></div>
+            -->
             <div id="disabledConnection"><p>Gesperrte Verbindung</p></div>
             <div id="disabledConnectionColor"></div>
             <div id="backgroundGrid"><p>Hintergrund</p></div>
@@ -105,7 +123,7 @@
         <div id="colorpicker">
             <!-- Colorcircle -->
             <div id="containerCanvas">
-                <canvas id="myCanvas" height="200" width="200"></canvas>
+                <canvas id="myCanvas" height="150" width="150"></canvas>
             </div>
             <!-- Inputfields for rgb-Values-->
             <div id="colorSliders">
@@ -154,9 +172,6 @@
             <button id="loadScheme" class="button-blue-dark">Farbschema laden</button>
         </div>
     </div>
-
-    
-
 </body>
 
 </html>
