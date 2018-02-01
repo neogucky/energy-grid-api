@@ -6,8 +6,8 @@
 // Object for api communication
 var api = new Api();
 
-function getApi(){
-    return api; 
+function getApi() {
+    return api;
 }
 
 var highlightedConnectionId;
@@ -105,6 +105,7 @@ function recolorGrid() {
     if (simulation) {
         updatePowers();
     }
+    updateButtonTexts();
 }
 
 // Update the color of every station
@@ -160,7 +161,7 @@ function updateStationPowers() {
     // Update transformerstations and substations
     ["transformerstation", "powerstation"].forEach(function (type) {
         for (var key in api.stores[type].items) {
-            $("#" + key + "-energyConsumption").text(api.stores[type].items[key].consumptionInKWh + " kWh  /  " + api.stores[type].items[key].maxConsumptionInKWh + " kWh");
+            $("#" + key + "-energyConsumption").text(Math.round(api.stores[type].items[key].consumptionInKWh + 100) / 100 + " kWh  /  " + api.stores[type].items[key].maxConsumptionInKWh + " kWh");
             if (Math.abs(api.stores[type].items[key].consumptionInKWh) > Math.abs(api.stores[type].items[key].maxConsumptionInKWh)) {
                 $("#" + key + "StatusStation").css("background", "red");
                 $("#symbol" + key).addClass("overload");
@@ -172,12 +173,12 @@ function updateStationPowers() {
     });
     // Update Substations
     for (var key in api.stores['substation'].items) {
-        $("#" + key + "-energyConsumption").text(api.stores['substation'].items[key].highVoltageIntakeInKWh + " kWh  /  " + api.stores['substation'].items[key].maxHighVoltageIntakeInKWh + " kWh");
+        $("#" + key + "-energyConsumption").text(Math.round(api.stores['substation'].items[key].highVoltageIntakeInKWh * 100) / 100 + " kWh  /  " + api.stores['substation'].items[key].maxHighVoltageIntakeInKWh + " kWh");
         if (Math.abs(api.stores['substation'].items[key].highVoltageIntakeInKWh) > Math.abs(api.stores['substation'].items[key].maxHighVoltageIntakeInKWh)) {
-            $("#" + key + "substation").css("background", "red");
+            $("#" + key + "StatusStation").css("background", "red");
             $("#symbol" + key).addClass("overloadSubstation");
         } else {
-            $("#" + key + "substation").css("background", "green");
+            $("#" + key + "StatusStation").css("background", "green");
             $("#symbol" + key).removeClass("overloadSubstation");
         }
     }
@@ -187,7 +188,7 @@ function updateStationPowers() {
 function updateConnectionPowers() {
     for (var key in api.stores['connection'].items) {
         // Set every power text of this connection
-        $("." + key + "connectionConsumption").text(api.stores['connection'].items[key].capacityKWh + " kWh");
+        $("." + key + "connectionConsumption").text(Math.round(api.stores['connection'].items[key].capacityKWh * 100) / 100 + " kWh");
         $("." + key + "connectionMaximum").text(api.stores['connection'].items[key].maxCapacityKWh + " kWh");
         // Reset every Connection for synchronizing animation purpose
         $("#connection-" + api.stores['connection'].items[key].id + "-0").removeClass("overload");
@@ -209,6 +210,16 @@ function updateConnectionPowers() {
             }
         }
     }
+}
+
+function updateButtonTexts() {
+    api.nodes.forEach(function (node) {
+        if (api.stores["connection"].items[getSelectedConnection(node.id)].disrupted) {
+            $("#setStatus" + node.id).text("Leitung aktivieren");
+        } else {
+            $("#setStatus" + node.id).text("Leitung deaktivieren");
+        }
+    });
 }
 
 /*  ###########################################################
@@ -264,12 +275,12 @@ function renderStations() {
         .style("left", function (d) { return ((100 / api.width) * d.x) + "%"; })
         .style("position", "absolute")
         .append(function (d) { return getStation(d); })
-        
+
     // And append the station dialog to the selection
     enterSelection.append(function (d) { return getStationDialog(d) });
 
-    
-    
+
+
     api.nodes.forEach(function (node) {
         $('#connections' + node.id).on('mouseenter', 'option', function (e) {
             if (highlightedConnectionId) {
@@ -282,8 +293,9 @@ function renderStations() {
             $("#connection-" + highlightedConnectionId + "-0").addClass("highlightedConnection1");
             $("#connection-" + highlightedConnectionId + "-1").addClass("highlightedConnection2");
             $("#connection-" + highlightedConnectionId + "-2").addClass("highlightedConnection3");
+
         });
-        
+
         document.getElementById("connections" + node.id).selectedIndex = "0";
 
         $('#connections' + node.id).on('mouseleave', 'option', function (e) {
@@ -297,9 +309,10 @@ function renderStations() {
             $("#connection-" + highlightedConnectionId + "-0").addClass("highlightedConnection1");
             $("#connection-" + highlightedConnectionId + "-1").addClass("highlightedConnection2");
             $("#connection-" + highlightedConnectionId + "-2").addClass("highlightedConnection3");
+
         });
     });
-    
+
 }
 
 // Renders the connections

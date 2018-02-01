@@ -130,6 +130,10 @@ function addUmspannwerk(IdUmspannwerk, Name, color) {
  * @returns {HTML} HTML Template
  */
 function addDialog(IdElement, Name, topVal, leftVal, alignHorizontal, alignVertical, connections) {
+    var listSize = Object.keys(connections).length;
+    if (listSize <= 1) {
+        listSize = 2;
+    }
     //create template
     var dialog = document.createElement("div");
     dialog.innerHTML = `
@@ -147,7 +151,7 @@ function addDialog(IdElement, Name, topVal, leftVal, alignHorizontal, alignVerti
                         <div class="wrapperStatus"><p class="maxConsumption"></p><p id="${IdElement}-energyConsumption" class="centerStatus"> / </p><p class="consumption"></p></div>
                     </div>
                     <div class="hLine"></div>
-                    <select name="SelectConnection" id="connections${IdElement}" class="connections" size="${Object.keys(connections).length}" onchange="selectionChange('${IdElement}')"></select>
+                    <select name="SelectConnection" id="connections${IdElement}" class="connections" size="${listSize}" onchange="selectionChange('${IdElement}')"></select>
                     <div id="connectionContainer${IdElement}" class="connectionStatus">
                         
                     </div>
@@ -300,4 +304,10 @@ function selectionChange(idElement) {
 function selectionHovered(idElement, idConnection) {
     $('#connectionContainer' + idElement).children().css('display', 'none');
     $('#connectionStatus' + idElement + idConnection).css('display', 'block');
+
+    if (api.stores["connection"].items[idConnection].disrupted) {
+        $("#setStatus" + idElement).text("Leitung aktivieren");
+    } else {
+        $("#setStatus" + idElement).text("Leitung deaktivieren");
+    }
 }

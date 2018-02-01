@@ -99,7 +99,11 @@ var backgroundGridClicked = false;
 var isUpdating = false; 
 //nodeId of the current selected stattion on the grid
 var currentSelectedStation; 
-
+//variables to safe the postion of the mouse pointer when clicked on the canvas or drag and dropped on it 
+var mouseX; 
+var mouseY; 
+//variable to indicate that Range or else is changed
+var notClicked
 /*
 loads the color picker png into the canvas and implements the click function on it. Everthing else is in the .ready() so that we make 
 sure the document is completly loaded before other methods work
@@ -170,14 +174,18 @@ $(document).ready(function () {
     //Everything that happends according to a click is implemented here
     function canvasClick(){
 	    $(canvas).click(function (e) {
-	    	//delete the circle on the canvas
-	        clearCircle();
 	        //safe the offset of the canvas
 	        var posX = $(this).offset().left,
 	            posY = $(this).offset().top;
 	        //calculate the actual mouse position
 	        var actualX = e.pageX - posX;
 	        var actualY = e.pageY - posY;
+
+            var canvasHeight = parseInt($('#myCanvas').css("height"));
+            var canvasWidth = parseInt($('#myCanvas').css("width")); 
+            //safe it globally
+            mouseX = actualX-canvasWidth/2;
+            mouseY = actualY-canvasHeight/2; 
 	        //Here we get the rgb information out of the clicked Pixel
 	        var pixelData = context.getImageData(actualX, actualY, 1, 1);
 	        //and safe it 
@@ -200,14 +208,19 @@ $(document).ready(function () {
 	    	pixelColorArrayHsl[0] = h;
 	        pixelColorArrayHsl[1] = s;
 	        pixelColorArrayHsl[2] = l; 
-	       	//update the color
-	        updateColor();
-	        //update the colordisplay values
-	        updateRgbValues(data[0], data[1], data[2],h, l,s);
-	        updateRgbRange(data[0], data[1], data[2],h, l,s);
-	        updateRgbValueHex(data[0],data[1],data[2]); 
-	        //redraw the circle which displays the mouse click on the canvas
-	        drawCircle(context, actualX, actualY);
+
+            if(checkClick()<=75){
+                //update the color
+                updateColor();
+                //update the colordisplay values
+                updateRgbValues(data[0], data[1], data[2],h, l,s);
+                updateRgbRange(data[0], data[1], data[2],h, l,s);
+                updateRgbValueHex(data[0],data[1],data[2]); 
+                //delete the circle on the canvas
+                clearCircle();
+                //redraw the circle which displays the mouse click on the canvas
+                drawCircle(context, actualX, actualY);
+            }
 	    });
 	}
 	/*
@@ -238,15 +251,19 @@ $(document).ready(function () {
         	}
         	//check if cursor is over the canvas and the user has clicked the mouse
             if (clicked == false && mouseDown == true) {
-                $(canvas).css({"cursor":"-webkit-grabbing"});
-                //delete the circle
-                clearCircle();
+                $(canvas).css({"cursor":"-webkit-grabbing"});      
                 //safe the offset of the canvas
                 var posX = $(this).offset().left,
                     posY = $(this).offset().top;
                 //calculate the actual mouse position
                 var actualX = e.pageX - posX;
                 var actualY = e.pageY - posY;
+                
+                var canvasHeight = parseInt($('#myCanvas').css("height"));
+                var canvasWidth = parseInt($('#myCanvas').css("width")); 
+                //safe it globally
+                mouseX = actualX-canvasWidth/2;
+                mouseY = actualY-canvasHeight/2; 
                 //Here we get the rgb information out of the clicked Pixel
                 var pixelData = context.getImageData(actualX, actualY, 1, 1);
                 //and safe it
@@ -275,6 +292,8 @@ $(document).ready(function () {
                 updateRgbValues(data[0], data[1], data[2],h, l,s);
                 updateRgbRange(data[0], data[1], data[2],h, l,s);
                 updateRgbValueHex(data[0],data[1],data[2]); 
+                //delete the circle on the canvas
+                clearCircle();
                 //redraw the circle
                 drawCircle(context, actualX, actualY);
             }
@@ -289,6 +308,8 @@ $(document).ready(function () {
      if they are changed this method handles the consequences
     */
     function inputRangeChanges() {
+        notClicked = true;
+        resetMouseClick();
     	//array to safe all elements that get input handlers
         var input = [];
         //safe all elements 
@@ -325,13 +346,16 @@ $(document).ready(function () {
                 //update the colorpicker
                 updateColor();
                 //update the rgb Ranges
-                updateRgbValues(red, green, blue,h, l,s);
+                updateRgbValues(red, green, blue,h, s,l);
                 //convert the rgb to hex information
                 var tmp = hexToRgb(hslToHex(h,s,l));
                 //update the hex field 
                 updateRgbValueHex(tmp[0],tmp[1],tmp[2]); 
+                //update the h and s values of the Ranges
+                updateHsRange(h,s,l); 
               	//clear the circle 
                 clearCircle();
+                notClicked = false; 
             });
         }
     }
@@ -340,6 +364,7 @@ $(document).ready(function () {
 	This function handles the User Input on the H and S Ranges
    */
     function hsInputChanges(){
+        resetMouseClick();
     	//array for the elements that will get a listener
     	var input = [];
     	//add the elements to the array
@@ -398,40 +423,41 @@ $(document).ready(function () {
     this function handles the input to the hex field 
     */
     function hexInputChanges(){
+        resetMouseClick();
         document.getElementById("rgb-Hex-value").addEventListener("input",function(){
+            //safe the value from the Hex Field when the User has made an Input
             var hex = document.getElementById("rgb-Hex-value").value;
-            
-            var red = hex2rgb(hex)[0];
-            var green = hex2rgb(hex)[1];
-            var blue = hex2rgb(hex)[2];
-
+            //convert the Hex value to an rgb Value
+            var red = hexToRgb(hex)[0];
+            var green = hexToRgb(hex)[1];
+            var blue = hexToRgb(hex)[2];
+            //and safe the rgb values in an array
             var rgbArr = []; 
             rgbArr[0] = red; 
             rgbArr[1] = green;
             rgbArr[2] = blue;
-
+            //convert the rgb to hsl value
             var h = rgb2hsl(rgbArr)[0];
             var s = rgb2hsl(rgbArr)[1];
             var l = rgb2hsl(rgbArr)[2];
-
+            //and safe th hsl in an array
             pixelColorArrayHsl[0] = h;
             pixelColorArrayHsl[1] = s;
             pixelColorArrayHsl[2] = l; 
-
-
+            //update the hsl String
             pixelColorHsl = "hsl("+h+", "+s+"%"+", "+l+"%"+")";
+            //update the rgb string
             pixelColor = "rgba(" + red + ", " + green + ", " + blue + ", " + 1 + ")";
             pixelColorArray[0] = red;
             pixelColorArray[1] = green;
             pixelColorArray[2] = blue; 
-
+            //update the color
             updateColor();
+            //update the Values displayed on the rgb Values and on the Ranges
             updateRgbValues(red, green, blue,h, l,s);
             updateRgbRange(red, green, blue,h, l,s);
-
-            
+            //clean the circle cause there is no point where the mouse has been clicked
             clearCircle();
-
         })
     }
 
@@ -440,9 +466,10 @@ $(document).ready(function () {
 	if they are changed this method handles the consequences
     */
     function inputFieldChanges() {
-
+        resetMouseClick();
+    	//Array to safe all the Elements that shall get an event Listener
         var input = [];
-
+        //fill th array
         input[0] = document.getElementById("rgb-Red-value");
         input[1] = document.getElementById("rgb-Green-value");
         input[2] = document.getElementById("rgb-Blue-value");
@@ -451,35 +478,43 @@ $(document).ready(function () {
         //try catch block to avoid syntax error when listener is not defined
         try{
             for (var i = 0; input.length; i++) {
+            	//Add event Listener on all Elements
                 input[i].addEventListener("input", function () {
+                	//safe the Values of all the Elements
                     red = document.getElementById("rgb-Red-value").value,
                     green = document.getElementById("rgb-Green-value").value,
                     blue = document.getElementById("rgb-Blue-value").value,
-                    alpha = document.getElementById("rgb-Alpha-value").value;
-                    saturation = document.getElementById("rgb-Saturation-value").value; 
-
-                    pixelColor = "rgba(" + red + ", " + green + ", " + blue + ", " + alpha + ")";
-
+                    //alpha = document.getElementById("rgb-Alpha-value").value;
+                    //saturation = document.getElementById("rgb-Saturation-value").value; 
+                    //update the rgb string
+                    //pixelColor = "rgba(" + red + ", " + green + ", " + blue + ", " + alpha + ")";
+                    //fill the rgb values in an array
                     rgbArray = [];
 	                rgbArray[0] = red; 
 	                rgbArray[1] = green; 
 	                rgbArray[2] = blue; 
+	                //convert them to hsl, note we only do that for the hue values
+	                //cause we already got input for the saturation and lightness
 			        var h = rgb2hsl(rgbArray)[0]; 
-			        var s = saturation*100; 
-			        var l = alpha*100; 
-
+			        var s = rgb2hsl(rgbArray)[1]; 
+			        var l = rgb2hsl(rgbArray)[2]; 
+			        //update the array for the hsl values
                     pixelColorArrayHsl[0] = h;
                     pixelColorArrayHsl[1] = s;
                     pixelColorArrayHsl[2] = l; 
-			        
+			        //update the String for the hsl values
 			    	pixelColorHsl = "hsl("+h+", "+s+"%"+", "+l+"%"+")"; 
-
+			    	//update the color 
                     updateColor();
+                    //update the rgb Range display
                     updateRgbRange(red, green, blue,h, l,s);
-
+                    //convert the hsl back to Rgb 
                     var tmp = hexToRgb(hslToHex(h,s,l));
-
+                    //update the hex value with the rgb values calculated before
                 	updateRgbValueHex(tmp[0],tmp[1],tmp[2]); 
+
+                    updateHsValue(h,l,s); 
+                	//clear the circle
                     clearCircle();
                 });
             }
@@ -487,6 +522,54 @@ $(document).ready(function () {
             
         }
         
+    }
+    
+    function inputFieldSlChanges(){
+        resetMouseClick();
+        //Array to safe all the Elements that shall get an event Listener
+        var input = [];
+        //fill th array
+        input[0] = document.getElementById("rgb-Alpha-value");
+        input[1] = document.getElementById("rgb-Saturation-value"); 
+
+        for (var i = 0; input.length; i++) {
+                //Add event Listener on all Elements
+                input[i].addEventListener("input", function () {
+                    //safe the Values of all the Elements
+                    alpha = document.getElementById("rgb-Alpha-value").value;
+                    saturation = document.getElementById("rgb-Saturation-value").value; 
+                    
+                    var h = pixelColorArrayHsl[1]; 
+                    var s = saturation*100; 
+                    var l = alpha*100; 
+
+                    var rgbArray = hexToRgb(hslToHex(h,s,l));
+
+                    var red = rgbArray[0]; 
+                    var green = rgbArray[1]; 
+                    var blue = rgbArray[2]; 
+    
+                    //convert them to hsl, note we only do that for the hue values
+                    //cause we already got input for the saturation and lightness
+                   
+                    //update the array for the hsl values
+                    pixelColorArrayHsl[0] = h;
+                    pixelColorArrayHsl[1] = s;
+                    pixelColorArrayHsl[2] = l; 
+                    //update the String for the hsl values
+                    pixelColorHsl = "hsl("+h+", "+s+"%"+", "+l+"%"+")"; 
+                    //update the color 
+                    updateColor();
+                    //update the rgb Range display
+                    updateRgbRange(red, green, blue,h, l,s);
+                    //convert the hsl back to Rgb 
+                    var tmp = hexToRgb(hslToHex(h,s,l));
+                    //update the hex value with the rgb values calculated before
+                    updateRgbValueHex(tmp[0],tmp[1],tmp[2]); 
+                    //clear the circle
+                    clearCircle();
+                });
+            }
     }
 
  /*  ###########################################################
@@ -497,68 +580,111 @@ $(document).ready(function () {
 	defined on window because the calling function has a bigger scope
  	*/
  	window.manageRangeHexValueUpdate = function(hex){
-		var colorHex = hex; 
-		var colorRgb = hexToRgb(hex); 
-		var colorHsl = rgb2hsl(colorRgb); 
-
-		updateRgbValueHex(colorRgb[0],colorRgb[1],colorRgb[2]);
-		updateRgbRange(colorRgb[0],colorRgb[1],colorRgb[2],colorHsl[0],colorHsl[1],colorHsl[2]); 
-		updateRgbValues(colorRgb[0],colorRgb[1],colorRgb[2],colorHsl[0],colorHsl[1],colorHsl[2]); 
+ 		if(checkClick()<=75|| notClicked == true){
+             //convet the hex to rgb and hsl
+            var colorHex = hex; 
+            var colorRgb = hexToRgb(hex); 
+            var colorHsl = rgb2hsl(colorRgb); 
+            //update all the color displayes on the color picker
+            updateRgbValueHex(colorRgb[0],colorRgb[1],colorRgb[2]);
+            updateRgbRange(colorRgb[0],colorRgb[1],colorRgb[2],colorHsl[0],colorHsl[1],colorHsl[2]); 
+            updateRgbValues(colorRgb[0],colorRgb[1],colorRgb[2],colorHsl[0],colorHsl[1],colorHsl[2]); 
+        }
+       
 	}
 	/*
 	Method that updates the Values displayed in the rgb Input-fields
 	*/
     function updateRgbValues(red, green, blue,h, l, s) {
-        document.getElementById("rgb-Red-value").value = red;
-        document.getElementById("rgb-Green-value").value = green;
-        document.getElementById("rgb-Blue-value").value = blue;
-        document.getElementById("rgb-Alpha-value").value = Math.round(l)/100;
-        document.getElementById("rgb-Saturation-value").value = Math.round(s)/100; 
+    	if(checkClick()<=75 || notClicked == true){
+            //get the Elements and change the Range values 
+            document.getElementById("rgb-Red-value").value = red;
+            document.getElementById("rgb-Green-value").value = green;
+            document.getElementById("rgb-Blue-value").value = blue;
+            document.getElementById("rgb-Alpha-value").value = Math.round(l)/100;
+            document.getElementById("rgb-Saturation-value").value = Math.round(s)/100; 
+        }
+        
     }
     /*
      Method that updates the Values displayed in the rgb Input-Ranges
     */
     function updateRgbRange(red, green, blue,h, l,s) {
-    	
-        var rgbColor = hexToRgb(hslToHex(h,s,l));
+    	if(checkClick()<=75 || notClicked == true){
+            //convert the hsl th get proper rgb values
+            var rgbColor = hexToRgb(hslToHex(h,s,l));
+            //and the convert it back 
+            var hslColor = rgb2hsl(rgbColor); 
+            //get the Elements and change their Values
+            document.getElementById("rgb-Red").value = rgbColor[0];
+            document.getElementById("rgb-Green").value = rgbColor[1];
+            document.getElementById("rgb-Blue").value = rgbColor[2];
+            document.getElementById("rgb-Alpha").value = Math.round(hslColor[2])/100;
+            document.getElementById("rgb-Saturation").value = Math.round(hslColor[1])/100;
+        }
         
-        var hslColor = rgb2hsl(rgbColor); 
-       
-        document.getElementById("rgb-Red").value = rgbColor[0];
-        document.getElementById("rgb-Green").value = rgbColor[1];
-        document.getElementById("rgb-Blue").value = rgbColor[2];
-        
-        document.getElementById("rgb-Alpha").value = Math.round(hslColor[2])/100;
-        document.getElementById("rgb-Saturation").value = Math.round(hslColor[1])/100;
     }
     /*
 	Function to update just the Rgb Ranges
     */
     function updateJustRgbRange(red, green, blue){
+        //get the Elements and change their values
     	document.getElementById("rgb-Red").value = red;
         document.getElementById("rgb-Green").value = green;
         document.getElementById("rgb-Blue").value = blue;
     }
+
+    /*
+    Function to update just the Rgb Values
+    */
+    function updateJustRgbValue(red, green, blue){
+        //get the Elements and change their values
+        document.getElementById("rgb-Red-value").value = red;
+        document.getElementById("rgb-Green-value").value = green;
+        document.getElementById("rgb-Blue-value").value = blue;
+    }
+    /*
+    function to just update the h and s Values of the Ranges
+    */
+    function updateHsRange(h, l,s) {
+       //update the values
+        document.getElementById("rgb-Alpha").value = Math.round(l)/100;
+        document.getElementById("rgb-Saturation").value = Math.round(s)/100;
+    }
+
+    /*
+    function to just update the h and s of the Values
+    */
+    function updateHsValue(h, l,s) {
+       //update the values
+        document.getElementById("rgb-Alpha-value").value = Math.round(l)/100;
+        document.getElementById("rgb-Saturation-value").value = Math.round(s)/100;
+    }
+
     /*
 	This function updates the Hex Value Display
     */
     function updateRgbValueHex(red, green, blue){
-        document.getElementById("rgb-Hex-value").value = rgb2hex(red,green,blue); 
+        if(checkClick()<=75){
+            document.getElementById("rgb-Hex-value").value = rgb2hex(red,green,blue); 
+        }     
     }
     /*
      This Method updates the color of the two color-displays,it also 
      checks if the user clicked somewhere on the canvas where no color is 
     */
     function updateColor() {
-        if (pixelColorArray[0] > 1 && pixelColorArray[1] > 1 && pixelColorArray[2] > 1) {
-        	
+            checkClick(); 
+            if(checkClick()<=75 || notClicked == false){
+
+        	//convert to hex cause the color JSON object only takes hex values
             var color = hslToHex(pixelColorArrayHsl[0],pixelColorArrayHsl[1],pixelColorArrayHsl[2]);  
-           
+           	//check which field is clicked and change its backgroud color and safe 
+           	//the color for the field in the variable for that
 
         	if(currentStationClicked == true){
         		$("#currentColor").css({"backgroundColor": pixelColorHsl});
         		currentStationColor = pixelColorHsl;
-        		
         	}else if(standardStationClicked == true){
          		$("#standardStationColor").css({"backgroundColor": pixelColorHsl});
          		standardStationColor = pixelColorHsl; 
@@ -575,10 +701,10 @@ $(document).ready(function () {
          		$("#backgroundGridnColor").css({"backgroundColor": pixelColorHsl});
          		nodeId = "bg"; 
          	}
-         	
+         	//update the color on the grid 
             updateGridColor(color); 
-            
         }
+        
     }
 
     /*
@@ -628,11 +754,27 @@ $(document).ready(function () {
     */
     function hexToRgb(hex){
         try{
-        	var hex = hex.replace('#','');
-	        r = parseInt(hex.substring(0,2), 16);
-	        g = parseInt(hex.substring(2,4), 16);
-	        b = parseInt(hex.substring(4,6), 16);
+            //check if the Hex Value has a leading # when yes delte it
+            if(hex.charAt(0)=="#"){
+                var hex = hex.replace('#','');
+            }else{
+                var hex = hex; 
+            }
+	        
+            r = parseInt(hex.substring(0,2), 16);
+	        
+            if(hex.length > 2){
+                g = parseInt(hex.substring(2,4), 16);
+            }else{
+                g = 0;
+            }
 
+            if(hex.length > 4){
+                b = parseInt(hex.substring(4,6), 16);
+            }else{
+                b = 0; 
+            }
+            
 	        result = [];
 	        result[0] = r;
 	        result[1] = g;
@@ -674,24 +816,6 @@ $(document).ready(function () {
         return hex.length === 1 ? '0' + hex : hex;
       };
       return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-    }
-
-    /*
-    this function transfers hex color Information into rgb color Information
-    */
-    function hex2rgb(hex) {
-        var hexReturn = [];
-        var hex1 = hex.substring(1); 
-        var bigint = parseInt(hex1, 16);
-        var r = (bigint >> 16) & 255;
-        var g = (bigint >> 8) & 255;
-        var b = bigint & 255;
-
-        hexReturn[0] = r;
-        hexReturn[1] = g;
-        hexReturn[2] = b;
-
-        return hexReturn;
     }
 	/*
 	Here we convert the given Array of {red,green,blue} in the hsl color room
@@ -1004,14 +1128,31 @@ $(document).ready(function () {
             window.frames[0].recolorGrid();
 
             var tmp = JSON.parse(localStorage.getItem("colors"));
-            
-            hex = tmp["bg"];
 
             $('#currentColor').css({"backgroundColor":tmp[currentSelectedStation]}); 
             $('#backgroundGridnColor').css({"backgroundColor":tmp["bg"]}); 
             $('#disabledConnectionColor').css({"backgroundColor":tmp["dc"]}); 
             $('#standardConnectionColor').css({"backgroundColor":tmp["uc"]}); 
             $('#standardStationColor').css({"backgroundColor":tmp["ds"]}); 
+            
+            if(currentStationClicked == true){
+                var color = tmp[currentSelectedStation];
+            }else if(standardStationClicked == true){
+                var color = tmp["ds"]; 
+            }else if(standardConnectionCLicked == true){
+                var color = tmp["uc"];
+            }else if(disabledConnectionClicked == true){
+                var color = tmp["dc"]; 
+            }else if(backgroundGridClicked == true){
+                var color = tmp["bg"]; 
+            }
+
+            var rgb = hexToRgb(color);
+            var hsl = rgb2hsl(rgb);
+
+            updateRgbValueHex(rgb[0],rgb[1],rgb[2]); 
+            updateRgbRange(rgb[0],rgb[1],rgb[2],hsl[0],hsl[2],hsl[1]); 
+            updateRgbValues(rgb[0],rgb[1],rgb[2],hsl[0],hsl[2],hsl[1]); 
 
             clearCircle(); 
         });
@@ -1042,9 +1183,9 @@ $(document).ready(function () {
             // Default color for the Disabled connection
             colors["dc"] = "#777777";
             // Default color for the Unplugged connection
-            colors["uc"] = "#aaaaaa";
+            colors["uc"] = "#eeeeee";
             // Default color for the Unplugged Station
-            colors["ds"] = "#aaaaaa";
+            colors["ds"] = "#eeeeee";
 
             return colors;
     }
@@ -1266,7 +1407,7 @@ $(document).ready(function () {
     */
     function selectCurrentStation(){
     	$('#selectedElement').on('click',function(){
-    		if(currentStationClicked == false){
+    		if(currentStationClicked == false && currentSelectedStation != null){
     			nodeId = currentSelectedStation;
     			currentStationClicked = true; 
     			standardStationClicked = false; 
@@ -1497,9 +1638,30 @@ $(document).ready(function () {
      image on it 
     */
     function clearCircle() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
+        if(checkClick()<=75){
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
+        } 
     }
+
+    function resetMouseClick(){
+        mouseX = 0;
+        mouseY = 0; 
+    }
+
+    /*
+    function to check if the user has clicked on the color field or outside somewhere else on the canvas
+    */
+    function checkClick(){
+        var canvasHeight = parseInt($('#myCanvas').css("height"));
+        var canvasWidth = parseInt($('#myCanvas').css("width")); 
+       
+        var distanceSquared = mouseX*mouseX + mouseY*mouseY;
+        var distance = Math.sqrt(distanceSquared);
+
+        return distance; 
+    }
+
 
    
 });

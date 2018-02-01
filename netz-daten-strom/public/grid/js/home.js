@@ -39,9 +39,9 @@ function getDefaultColors() {
     // Default color for the Disabled connection
     colors["dc"] = "#777777";
     // Default color for the Unplugged connection
-    colors["uc"] = "#aaaaaa";
+    colors["uc"] = "#eeeeee";
     // Default color for the Unplugged Station
-    colors["ds"] = "#aaaaaa";
+    colors["ds"] = "#eeeeee";
     // Write it as a string in the store
     localStorage.setItem("colors", JSON.stringify(colors));
     $(".center").css("display", "inline");
