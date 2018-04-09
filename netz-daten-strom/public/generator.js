@@ -26,6 +26,14 @@ $(document).ready(function() {
 		states : {
 			1 : { /* the typical day 0.3 to 0.7 capacity but industry at 0.4 to 0.8*/
 			  name : 'day',
+			  catastrophes : [
+				{
+					type : 'fire',
+					uniqueMessage : '', /* empty = use default */
+					probability: 1, /* 0 = 0% to 1 = 100% */
+					targetID: '' /* the station where the catastrophe originated (depending on catastrophe may be left empty) */
+				}
+			  ],
 			  values : {
 				default : {
 					variation : 0.2,
@@ -46,7 +54,14 @@ $(document).ready(function() {
 				powerConventional : {
 					variation : 0.2,
 					median : 0.8
-					}						
+					},
+				exceptions : {
+					219678aec2a59b23 : {
+						/* Hardcoded Universität 100% */
+						variation : 0,
+						median : 1
+					}
+				}					
 				}
 			},
 			2 : { /* the typical night 0.3 to 0.5 capacity */
@@ -71,7 +86,14 @@ $(document).ready(function() {
 				powerConventional : {
 					variation : 0.2,
 					median : 0.8
-					}						
+					},
+				exceptions : {
+					219678aec2a59b23 : {
+						/* Hardcoded Universität 50% */
+						variation : 0,
+						median : 0.5
+						}
+					}					
 				}
 			},
 			3 : {/* the typical evening 0.6 to 1.0 capacity */
@@ -121,7 +143,14 @@ $(document).ready(function() {
 				powerConventional : {
 					variation : 0.2,
 					median : 0.8
-					}						
+					},
+				exceptions : {
+					219678aec2a59b23 : {
+						/* Hardcoded Universität 50% */
+						variation : 0,
+						median : 0.5
+					}
+				}
 				}
 			}
 		}		
@@ -247,8 +276,16 @@ $(document).ready(function() {
 			var transformerStation = stores['transformerstation'].items[key];
 			var station = Station.fromTransformerStation(transformerStation);
 			
-			var calculatedStationConsumption = calculateUpdatedConsumption(station, currentState.values.default);
+			var calculatedStationConsumption;
 			
+			//check if State has an exception for current station:
+			if (currentState.values.exception.hasOwnProperty(station.id)){
+				calculatedStationConsumption = calculateUpdatedConsumption(station, currentState.values.exception[station.id]);
+			} else {
+				//if no exception exists use default setting
+				calculatedStationConsumption = calculateUpdatedConsumption(station, currentState.values.default);
+			}	
+		
 			if (transformerStation.pathToSubstation.length == 0){
 				//if no substation is connected the transformerstation will have no energy
 				calculatedStationConsumption = 0;
@@ -623,13 +660,13 @@ $(document).ready(function() {
 		}
 	}
 	
-	function generateAlarm(importance, type, alarmType, errorMessage, alarmSource){
+	function generateAlarm(importance, triggerType, type, errorMessage, alarmSource){
 		dpd.alarm.post({
 				dateTime: new Date().getTime(), 
 				importance: importance,
-				triggerTypeID: type,
+				triggerTypeID: triggerType,
 				triggerID: alarmSource.id,
-				alarmType: alarmType,
+				alarmType: type,
 				message: errorMessage,
 				areaID: alarmSource.areaID,
 				needsAck: importance > 7,
