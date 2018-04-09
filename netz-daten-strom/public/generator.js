@@ -56,7 +56,7 @@ $(document).ready(function() {
 					median : 0.8
 					},
 				exceptions : {
-					219678aec2a59b23 : {
+					'219678aec2a59b23' : {
 						/* Hardcoded Universität 100% */
 						variation : 0,
 						median : 1
