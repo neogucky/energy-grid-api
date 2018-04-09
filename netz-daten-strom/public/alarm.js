@@ -86,8 +86,15 @@ $(document).ready(function() {
 		}
 	}
 		
-	function getAlarmType(alarmType){
-		return alarmType[alarmType];
+	function getAlarmType(type){
+		var result;
+		if (alarmType[type]){
+			result = alarmType[type];
+		} else {
+			result = 'unbekannter Alarm';
+		}
+		
+		return result;
 	}
 		
 	function renderAlarmMessages() {
