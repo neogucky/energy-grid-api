@@ -5,9 +5,18 @@
     <title>Alarmliste</title>
     <style type="text/css">
  
+	    	@font-face {
+		    font-family: "SourceSansSafety";
+		    src: url("http://netzdatenstrom.imis.uni-luebeck.de/assets/fonts/SourceSansSafety-Regular.otf") format("opentype");
+		}
+
+		/* font optimized for safety critical systems */
+		body, p, h1, h2, h3, h4, h5, h6, a, div, span, li, input, button {
+		  font-family: "SourceSansSafety", Verdana!important;
+		}
+	    
 		 body {
-		  background-color: #3e94ec;
-		  font-family: "Roboto", helvetica, arial, sans-serif;
+		  background-color: #F2F2F2;
 		  font-size: 16px;
 		  font-weight: 400;
 		  text-rendering: optimizeLegibility; }
@@ -19,18 +28,16 @@
 				
 
 		div.table-title {
-		   display: block;
+		  display: block;
 		  margin: auto;
 		  padding:5px;
 		  width: 100%; }
 
 		.table-title h3 {
-		   color: #fafafa;
+		   color: #252525;
 		   font-size: 30px;
 		   font-weight: 400;
-		   font-style:normal;
-		   font-family: "Roboto", helvetica, arial, sans-serif;
-		   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+		   font-style: normal;
 		   text-transform:uppercase; }		
 		   
 		/*** Table Styles **/
@@ -46,16 +53,13 @@
 		  animation: float 5s infinite; }
 		 
 		th {
-		  color:#D5DDE5;;
-		  background:#1b1e24;
-		  border-bottom:4px solid #9ea7af;
-		  border-right: 1px solid #343a45;
-		  font-size:18px;
-		  font-weight: 100;
-		  padding:24px;
-		  text-align:left;
-		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-		  vertical-align:middle; }
+		      color: #F2F2F2;
+		    background: #252525;
+		    font-size: 18px;
+		    font-weight: 100;
+		    padding: 24px;
+		    text-align: left;
+		    vertical-align: middle; }
 
 		th:first-child {
 		  border-top-left-radius:3px; }
