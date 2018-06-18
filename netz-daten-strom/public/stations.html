@@ -5,36 +5,40 @@
     <title>Ortsnetzstationen</title>
     <style type="text/css">
  
+		@font-face {
+		    font-family: "SourceSansSafety";
+		    src: url("http://netzdatenstrom.imis.uni-luebeck.de/assets/fonts/SourceSansSafety-Regular.otf") format("opentype");
+		}
+		/* font optimized for safety critical systems */
+		body, p, h1, h2, h3, h4, h5, h6, a, div, span, li, input, button {
+		  font-family: "SourceSansSafety", Verdana!important;
+		}
+	    
 		 body {
-		  background-color: #3e94ec;
-		  font-family: "Roboto", helvetica, arial, sans-serif;
+		  background-color: #F2F2F2;
 		  font-size: 16px;
 		  font-weight: 400;
 		  text-rendering: optimizeLegibility; }
-
+	    
 		.container { 
 			width: 1400px; 
 			margin-left: auto; 
 			margin-right: auto; }
 				
-
 		div.table-title {
-		   display: block;
+		  display: block;
 		  margin: auto;
 		  padding:5px;
 		  width: 100%; }
-
+	    
 		.table-title h3 {
-		   color: #fafafa;
+		   color: #252525;
 		   font-size: 30px;
 		   font-weight: 400;
-		   font-style:normal;
-		   font-family: "Roboto", helvetica, arial, sans-serif;
-		   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+		   font-style: normal;
 		   text-transform:uppercase; }		
 		   
 		/*** Table Styles **/
-
 		.table-fill {
 		  background: white;
 		  border-radius:3px;
@@ -46,27 +50,23 @@
 		  animation: float 5s infinite; }
 		 
 		th {
-		  color:#D5DDE5;;
-		  background:#1b1e24;
-		  border-bottom:4px solid #9ea7af;
-		  border-right: 1px solid #343a45;
-		  font-size:18px;
-		  font-weight: 100;
-		  padding:24px;
-		  text-align:left;
-		  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-		  vertical-align:middle; }
-
+		    font-size: 18px;
+		    font-weight: 100;
+		    padding: 24px;
+		    text-align: left;
+		    vertical-align: middle; }
+	    
 		th:first-child {
 		  border-top-left-radius:3px; }
 		 
 		th:last-child {
 		  border-top-right-radius:3px;
 		  border-right:none; }
-		  
+		
+	    	thead {
+	    	  border-bottom-: 1px solid #C1C3D1; }
+	    
 		tr {
-		  border-top: 1px solid #C1C3D1;
-		  border-bottom-: 1px solid #C1C3D1;
 		  color:#666B85;
 		  font-size:16px;
 		  font-weight:normal;
@@ -79,7 +79,7 @@
 		 
 		tr:first-child {
 		  border-top:none; }
-
+	    
 		tr:last-child {
 		  border-bottom:none; }
 		 
@@ -88,7 +88,6 @@
 		 
 		tr:nth-child(odd):hover td {
 		  background:#4E5066; }
-
 		tr:last-child td:first-child {
 		  border-bottom-left-radius:3px; }
 		 
@@ -97,41 +96,38 @@
 		 
 		td {
 		  background:#FFFFFF;
-		   padding: 12px 16px;
+		  padding: 12px 16px;
 		  text-align:left;
 		  vertical-align:middle;
 		  font-weight:300;
-		  font-size:16px;
-		  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-		  border-right: 1px solid #C1C3D1; }
-
+		  font-size:16px; }
+	    
 		td:last-child {
 		  border-right: 0px; }
-
+	    
 		th.text-left,
 		td.text-left {
 		  text-align: left; }
-
+	    
 		th.text-center,
 		td.text-center {
 		  text-align: center; }
-
+	    
 		a {
 			cursor: pointer!important; }
-
+	    
 		td.importance_6,
 		td.importance_7,
 		td.importance_8 {
 			 background-color: orange!important;
 			color: white;
 			font-weight: bold; }
-
+	    
 		td.importance_9,
 		td.importance_10 {
 			background-color: red!important;
 			color: white;
 			font-weight: bold; }
-	
     </style>
 </head>
 <body>
