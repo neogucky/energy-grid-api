@@ -60,7 +60,8 @@ $(document).ready(function() {
 	function getArea(areaID){
 		var areaObject = stores['area'].getByID(areaID);
 		if (areaObject.error){
-			return areaObject.message;
+			console.log(areaObject.message);
+			return "Unbekannt";
 		} else {
 			return areaObject.name;
 		}
@@ -68,8 +69,7 @@ $(document).ready(function() {
 	
 	function getDateTime (timestamp) {
 		var date = new Date(timestamp);
-		console.log(date);
-		return date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(); 
+		return date.getDate().padStart(2,0) + '.' + (date.getMonth() + 1).padStart(2,0) + '.' + date.getFullYear() + ' ' + date.getHours().padStart(2,0) + ':' + date.getMinutes().padStart(2,0) + ':' + date.getSeconds().padStart(2,0); 
 	}
 	
 	function getTrigger(triggerTypeID, triggerID){
@@ -113,6 +113,6 @@ $(document).ready(function() {
 		  // Do something
 		});
 	}
-		
+			
 	
 });

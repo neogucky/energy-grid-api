@@ -23,7 +23,7 @@ $(document).ready(function() {
 		var updatedRow = $('<tr class="station" id="' + message.id + '">')
 			.append('<td class="type">Ortsnetzstation</td>')
             .append('<td class="name">' + message.name + '</td>')
-			.append('<td class="consumption">' + message.consumptionInKWh + '</td>')
+			.append('<td class="consumption">' + Math.floor(message.consumptionInKWh) + '</td>')
 			.append('<td class="consumptionPercent">' +   roundTwoPlaces((message.consumptionInKWh / message.maxConsumptionInKWh) * 100) + '%</td>')
 			.append('<td class="maxConsumption">' + message.maxConsumptionInKWh + '</td>');
 			
@@ -40,7 +40,7 @@ $(document).ready(function() {
 		var updatedRow = $('<tr class="station" id="' + message.id + '">')
 		    .append('<td class="type">Umspannwerk</td>')
             .append('<td class="name">' + message.name + '</td>')
-			.append('<td class="consumption">' + message.highVoltageIntakeInKWh + '</td>')
+			.append('<td class="consumption">' + Math.floor(message.highVoltageIntakeInKWh) + '</td>')
 			.append('<td class="consumptionPercent">' +   roundTwoPlaces((message.highVoltageIntakeInKWh / message.maxHighVoltageIntakeInKWh) * 100) + '%</td>')
 			.append('<td class="maxConsumption">' + message.maxHighVoltageIntakeInKWh + '</td>');
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
         var updatedRow = $('<tr class="station" id="' + message.id + '">')
 			.append('<td class="type">Kraftwerk (' + german.translate(powerType[message.powerType]) + ')</td>')
             .append('<td class="name">' + message.name + '</td>')
-			.append('<td class="consumption">' + message.consumptionInKWh + '</td>')
+			.append('<td class="consumption">' +  Math.floor(message.consumptionInKWh) + '</td>')
 			.append('<td class="consumptionPercent">' +   -roundTwoPlaces((message.consumptionInKWh / message.maxConsumptionInKWh) * 100) + '%</td>')
 			.append('<td class="maxConsumption">' + message.maxConsumptionInKWh + '</td>');
 			
