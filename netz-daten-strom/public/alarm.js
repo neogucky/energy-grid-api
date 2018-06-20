@@ -69,7 +69,7 @@ $(document).ready(function() {
 	
 	function getDateTime (timestamp) {
 		var date = new Date(timestamp);
-		return date.getDate().padStart(2,0) + '.' + (date.getMonth() + 1).padStart(2,0) + '.' + date.getFullYear() + ' ' + date.getHours().padStart(2,0) + ':' + date.getMinutes().padStart(2,0) + ':' + date.getSeconds().padStart(2,0); 
+		return date.getDate().padStart(2,0) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds()); 
 	}
 	
 	function getTrigger(triggerTypeID, triggerID){
@@ -114,5 +114,8 @@ $(document).ready(function() {
 		});
 	}
 			
+	function pad (value){
+		("" + value).padStart(2,"0");
+	}
 	
 });
