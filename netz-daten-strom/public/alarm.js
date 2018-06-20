@@ -69,7 +69,7 @@ $(document).ready(function() {
 	
 	function getDateTime (timestamp) {
 		var date = new Date(timestamp);
-		return date.getDate().padStart(2,0) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds()); 
+		return pad(date.getDate()) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds()); 
 	}
 	
 	function getTrigger(triggerTypeID, triggerID){
