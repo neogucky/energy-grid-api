@@ -66,8 +66,8 @@ $(document).ready(function() {
 			return areaObject.name;
 		}
 	}
-	
-	function getDateTime (timestamp) {
+		
+	function getDateTime(timestamp) {
 		var date = new Date(timestamp);
 		return pad(date.getDate()) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds()); 
 	}
@@ -113,9 +113,9 @@ $(document).ready(function() {
 		  // Do something
 		});
 	}
-			
-	function pad (value){
-		("" + value).padStart(2,"0");
-	}
 	
+	function pad(val){
+		return ("" + val).padStart(2,"0");
+	}
+				
 });
