@@ -2,30 +2,76 @@
     This script is communicating with the api
 */
 
+// Default constructor
 function Api() {
     this.stores = [];
     this.edges = [];
     this.nodes = [];
     this.width = 0;
     this.height = 0;
+    this.isUpdating = false;
 }
 
 //Sets up the Store, should be called first
 Api.prototype.initializeAPI = function (callback) {
     var self = this;
+    // Login to api as bachelorproject user
+    dpd.users.login({ username: "B1", password: "RocketZ"}, function (a, b) { if (b) { console.log(error); }});
     //initialize stores (dirty sequential chaining)
     this.stores['transformerstation'] = new DPDStore('transformerstation', function () { self.stores['substation'].connect(); });
     this.stores['substation'] = new DPDStore('substation', function () { self.stores['powerstation'].connect(); });
-    this.stores['powerstation'] = new DPDStore('powerstation', function () { self.stores['area'].connect(); });
-    this.stores['area'] = new DPDStore('area', function () { self.stores['connection'].connect(); });
+    this.stores['powerstation'] = new DPDStore('powerstation', function () { self.stores['connection'].connect(); });
     this.stores['connection'] = new DPDStore('connection', function () { self.updateAPIData(callback); });
-    // TODO Update listener
     //start the chain
     this.stores['transformerstation'].connect();
 };
 
+// Update the disrupted state of the connection in the api
+Api.prototype.commitSwitchedConnection = function (connectionId) {
+    this.stores['connection'].put(connectionId, { disrupted: !this.stores['connection'].items[connectionId].disrupted }, function (a, b) {if (b) { console.log(b); } });
+};
+
+// Update Routine
+Api.prototype.onUpdateData = function (self) {
+    // Check first, if this is not busy
+    if (self.isUpdating) {
+        console.log("blocked");
+        return;
+    }
+    self.isUpdating = true;
+    // Count current elements
+    var numberOfNodes = Object.keys(self.stores['transformerstation'].items).length;
+    numberOfNodes += Object.keys(self.stores['substation'].items).length;
+    numberOfNodes += Object.keys(self.stores['powerstation'].items).length;
+    if (self.edges.length != Object.keys(self.stores['connection'].items).length || self.nodes.length != numberOfNodes) {
+        // Rerender everything, if there are new nodes or deleted nodes
+        self.updateAPIData(renderGrid);
+        self.isUpdating = false;
+    } else {
+        var needsRecoloring = false;
+        for (var i = 0; i < self.edges.length; i++) {
+            if (self.edges[i].data.disrupted != this.stores['connection'].items[self.edges[i].id].disrupted) {
+                needsRecoloring = true;
+                self.edges[i].data.disrupted = this.stores['connection'].items[self.edges[i].id].disrupted;
+            }
+        }
+        if (needsRecoloring) {
+            self.updateStationColors(recolorGrid);
+        } else {
+            updatePowers();
+        }
+    }
+    // Be unbusy
+    self.isUpdating = false;
+}
+
 // Sets up internal object structure
 Api.prototype.updateAPIData = function (callback) {
+    // Update listener
+    this.stores['transformerstation'].setUpdateListener(function () { self.onUpdateData(self) });
+    this.stores['substation'].setUpdateListener(function () { self.onUpdateData(self) });
+    this.stores['powerstation'].setUpdateListener(function () { self.onUpdateData(self) });
+    this.stores['connection'].setUpdateListener(function () { self.onUpdateData(self); });
     // Store the data temporally, after everything is done it will be applied
     var tempNodes = [], tempConnections = [], self = this;
     // Get data from API
@@ -36,6 +82,8 @@ Api.prototype.updateAPIData = function (callback) {
     });
     // Calculate coordinates of the stations
     tempNodes = this.calculateMakroPositions(tempNodes, tempConnections);
+    // Calculate Colors
+    this.distributeColors(tempNodes, tempConnections);
     // Apply
     this.nodes = tempNodes;
     this.edges = tempConnections;
@@ -162,6 +210,64 @@ Api.prototype.calculateMicroPositions = function (nodes, edges, x, y) {
     return [returnNodes, Math.ceil(x + boxSize), Math.ceil(y + boxSize)];
 };
 
+// Update colors
+Api.prototype.updateStationColors = function (callback) {
+    this.distributeColors(this.nodes, this.edges);
+    callback();
+}
+
+// Set the color informations in every node
+Api.prototype.distributeColors = function (nodes, edges) {
+    // First clear every information
+    nodes.forEach(function (node) {
+        node.connectedSubstations = [];
+    });
+    // Set up a dictionary for better accessing objects
+    var self = this, dic = new Object();
+    for (var i = 0; i < nodes.length; i++) {
+        dic[nodes[i].id] = i;
+    }
+    // Loop through all connections until no station is updated
+    var continueWorking = true;
+    while (continueWorking) {
+        continueWorking = false;
+        edges.forEach(function (connection) {
+            // Continue if the connection is disabled
+            if (!self.stores["connection"].items[connection.id].disrupted || !simulation) {
+                // Add the color of the substation to the non substation
+                if (nodes[dic[connection.connectsIDs[0]]].type == "substation" && nodes[dic[connection.connectsIDs[1]]].type != "substation") {
+                    if ($.inArray(nodes[dic[connection.connectsIDs[0]]].id, nodes[dic[connection.connectsIDs[1]]].connectedSubstations) == -1) {
+                        nodes[dic[connection.connectsIDs[1]]].connectedSubstations.push(nodes[dic[connection.connectsIDs[0]]].id);
+                        continueWorking = true;
+                    }
+                }
+                // Add the color of the substation to the non substation
+                else if (nodes[dic[connection.connectsIDs[1]]].type == "substation" && nodes[dic[connection.connectsIDs[0]]].type != "substation") {
+                    if ($.inArray(nodes[dic[connection.connectsIDs[1]]].id, nodes[dic[connection.connectsIDs[0]]].connectedSubstations) == -1) {
+                        nodes[dic[connection.connectsIDs[0]]].connectedSubstations.push(nodes[dic[connection.connectsIDs[1]]].id);
+                        continueWorking = true;
+                    }
+                }
+                // Add the colors from the one to the other and vice versa
+                else if (nodes[dic[connection.connectsIDs[1]]].type != "substation" && nodes[dic[connection.connectsIDs[0]]].type != "substation") {
+                    nodes[dic[connection.connectsIDs[0]]].connectedSubstations.forEach(function (id) {
+                        if ($.inArray(id, nodes[dic[connection.connectsIDs[1]]].connectedSubstations) == -1) {
+                            nodes[dic[connection.connectsIDs[1]]].connectedSubstations.push(id);
+                            continueWorking = true;
+                        }
+                    });
+                    nodes[dic[connection.connectsIDs[1]]].connectedSubstations.forEach(function (id) {
+                        if ($.inArray(id, nodes[dic[connection.connectsIDs[0]]].connectedSubstations) == -1) {
+                            nodes[dic[connection.connectsIDs[0]]].connectedSubstations.push(id);
+                            continueWorking = true;
+                        }
+                    });
+                }
+            }
+        });
+    }
+};
+
 // Generates a list of objects from the given store type
 Api.prototype.addGridObjects = function (type, tempNodes, tempConnections) {
     var self = this;    
@@ -212,6 +318,7 @@ function Node() {
     this.data;
     this.connectedSides = [];
     this.colorSources = [];
+    this.connectedSubstations = [];
 }
 
 // Connection object wrapper
@@ -219,4 +326,5 @@ function Edge() {
     this.connectsIDs = [];
     this.data;
     this.id;
+    this.path;
 }

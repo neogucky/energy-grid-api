@@ -62,16 +62,40 @@ function addOrtsnetzstation(IdOrtsnetzstation, Name, colors) {
                     <!--SVG Code-->
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
                         <rect id="ortsnetzstation1${IdOrtsnetzstation}" x="10" y="10" width="80" height="80" stroke="${colors[0]}" fill="${colors[0]}" stroke-width="15px"/> />
+                        <rect id="ortsnetzstation2${IdOrtsnetzstation}" x="40" y="40" width="20" height="20" stroke="${colors[0]}" fill="${colors[0]}" stroke-width="10px"/> />
                     </svg>
                 </div>             
              </div >`;
-    } else {
+    } else if (colors.length === 2){
         station.innerHTML =
             `<div id="ortsnetzstation${IdOrtsnetzstation}" class="station">
                 <div class="stationSymbol"  id="symbol${IdOrtsnetzstation}">
                     <!--SVG Code-->
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
                         <rect id="ortsnetzstation1${IdOrtsnetzstation}" x="10" y="10" width="80" height="80" stroke="${colors[1]}" fill="${colors[0]}" stroke-width="15px"/> />
+                        <rect id="ortsnetzstation2${IdOrtsnetzstation}" x="40" y="40" width="20" height="20" stroke="${colors[0]}" fill="${colors[0]}" stroke-width="10px"/> />
+                    </svg>
+                </div>             
+             </div >`;
+    } else if (colors.length === 3) {
+        station.innerHTML =
+            `<div id="ortsnetzstation${IdOrtsnetzstation}" class="station">
+                <div class="stationSymbol"  id="symbol${IdOrtsnetzstation}">
+                    <!--SVG Code-->
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <rect id="ortsnetzstation1${IdOrtsnetzstation}" x="10" y="10" width="80" height="80" stroke="${colors[1]}" fill="${colors[0]}" stroke-width="15px"/> />
+                        <rect id="ortsnetzstation2${IdOrtsnetzstation}" x="40" y="40" width="20" height="20" stroke="${colors[2]}" fill="${colors[2]}" stroke-width="10px"/> />
+                    </svg>
+                </div>             
+             </div >`;
+    } else if (colors.length === 4) {
+        station.innerHTML =
+            `<div id="ortsnetzstation${IdOrtsnetzstation}" class="station">
+                <div class="stationSymbol"  id="symbol${IdOrtsnetzstation}">
+                    <!--SVG Code-->
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <rect id="ortsnetzstation1${IdOrtsnetzstation}" x="10" y="10" width="80" height="80" stroke="${colors[1]}" fill="${colors[0]}" stroke-width="15px"/> />
+                        <rect id="ortsnetzstation2${IdOrtsnetzstation}" x="40" y="40" width="20" height="20" stroke="${colors[2]}" fill="${colors[3]}" stroke-width="10px"/> />
                     </svg>
                 </div>             
              </div >`;
@@ -94,18 +118,22 @@ function addUmspannwerk(IdUmspannwerk, Name, color) {
     return station;
 }
 
-
 /*
  * Creates the dialog for a element
  * @param {any} IdElement id for the element
  * @param {any} Name name for the element
  * @param {any} topVal x-cordinate
  * @param {any} leftVal y-cordinate
- * @param {left,right} align postion of the dialog
+ * @param {left,right} alignHorizontal postion of the dialog
+ * @parym {top,bottom} alignVertical
  * @param {collection} connections
  * @returns {HTML} HTML Template
  */
-function addDialog(IdElement, Name, topVal, leftVal, align, connections) {
+function addDialog(IdElement, Name, topVal, leftVal, alignHorizontal, alignVertical, connections) {
+    var listSize = Object.keys(connections).length;
+    if (listSize <= 1) {
+        listSize = 2;
+    }
     //create template
     var dialog = document.createElement("div");
     dialog.innerHTML = `
@@ -119,33 +147,35 @@ function addDialog(IdElement, Name, topVal, leftVal, align, connections) {
                         </div>
                         <div class="dialogClose" onclick="toggleDialog('${IdElement}')"></div>
                     </div>
-                    <div class="stationStatusOffline" id="${IdElement}StatusStationOffline">
-                        <p>Status: Offline</p>
-                    </div>
-                    <div class="stationStatusOnline" id="${IdElement}StatusStationOnline">
-                        <p>Status: Online</p>
+                    <div class="stationStatus" id="${IdElement}StatusStation">
+                        <div class="wrapperStatus"><p class="maxConsumption"></p><p id="${IdElement}-energyConsumption" class="centerStatus"> / </p><p class="consumption"></p></div>
                     </div>
                     <div class="hLine"></div>
-                    <select name="SelectConnection" id="connections${IdElement}" class="connections"></select>
-                    <div class="connectionStatusOnline">
-                        <p>Status: Online</p>
+                    <select name="SelectConnection" id="connections${IdElement}" class="connections" size="${listSize}" onchange="selectionChange('${IdElement}')"></select>
+                    <div id="connectionContainer${IdElement}" class="connectionStatus">
+                        
                     </div>
-                    <div class="connectionStatusOffline">
-                        <p>Status: Offline</p>
-                    </div>
-                    <button id="setStatus${IdElement}" class="btn-setStatus button-blue-dark">Leitung schalten</button>
+                    <button id="setStatus${IdElement}" class="btn-setStatus button-blue-dark" onClick="switchConnection('${IdElement}')">Leitung schalten</button>
                 </div>
             </div>
         </div>`;
 
     //Add Style for left or right
-    if (align === 'right') {
-        $("#triangleDialog" + IdElement, dialog).addClass("triangleRight");
+    if (alignHorizontal === 'right') {
+        if (alignVertical === 'top') {
+            $("#triangleDialog" + IdElement, dialog).addClass("triangleRightTop");
+        } else if (alignVertical === 'bottom') {
+            $("#triangleDialog" + IdElement, dialog).addClass("triangleRightBottom");
+        }
         $("#dialogContent" + IdElement, dialog).addClass("dialogContentRight");
         $("#" + IdElement + "Dialog", dialog).addClass("dialogRight");
 
-    } else if (align === 'left') {
-        $("#triangleDialog" + IdElement, dialog).addClass("triangleLeft");
+    } else if (alignHorizontal === 'left') {
+        if (alignVertical === 'top') {
+            $("#triangleDialog" + IdElement, dialog).addClass("triangleLeftTop");
+        } else if (alignVertical === 'bottom') {
+            $("#triangleDialog" + IdElement, dialog).addClass("triangleLeftBottom");
+        }
         $("#dialogContent" + IdElement, dialog).addClass("dialogContentLeft");
         $("#" + IdElement + "Dialog", dialog).addClass("dialogLeft");
     }
@@ -157,7 +187,6 @@ function addDialog(IdElement, Name, topVal, leftVal, align, connections) {
 
     //set position
     $("#" + IdElement + "Dialog", dialog).css({ top: topVal + "%", left: leftVal + "%", position: 'absolute' });
- 
     return dialog;
 }
 
@@ -200,9 +229,23 @@ function changeColorOrtsnetzstation(colors, idStation) {
     if (colors.length === 1) {
         $("#ortsnetzstation1" + idStation).attr("stroke", colors[0] );
         $("#ortsnetzstation1" + idStation).attr("fill", colors[0]);
+        $("#ortsnetzstation2" + idStation).attr("stroke", colors[0]);
+        $("#ortsnetzstation2" + idStation).attr("fill", colors[0]);
+    } if (colors.length === 2) {
+        $("#ortsnetzstation1" + idStation).attr("stroke", colors[0]);
+        $("#ortsnetzstation1" + idStation).attr("fill", colors[1]);
+        $("#ortsnetzstation2" + idStation).attr("stroke", colors[1]);
+        $("#ortsnetzstation2" + idStation).attr("fill", colors[1]);
+    } if (colors.length === 3) {
+        $("#ortsnetzstation1" + idStation).attr("stroke", colors[0]);
+        $("#ortsnetzstation1" + idStation).attr("fill", colors[1]);
+        $("#ortsnetzstation2" + idStation).attr("stroke", colors[2]);
+        $("#ortsnetzstation2" + idStation).attr("fill", colors[2]);
     } else {
         $("#ortsnetzstation1" + idStation).attr("stroke", colors[0] );
         $("#ortsnetzstation1" + idStation).attr("fill", colors[1]);
+        $("#ortsnetzstation2" + idStation).attr("stroke", colors[2]);
+        $("#ortsnetzstation2" + idStation).attr("fill", colors[3]);
     }
 }
 
@@ -216,67 +259,26 @@ function changeColorUmspannwerk(color, idStation) {
 }
 
 /*
- * Set the status for an element to online or offline
- * @param {any} idStation the selected element
- * @param {online,offline} status new status for the selected element
- */
-function setStationStatus(idStation, status) {
-    if (status === 'online') {
-        //status fields in Dialog
-        $("#" + idStation + "StatusStationOnline").css({ display: 'block' });
-        $("#" + idStation + "StatusStationOffline").css({ display: 'none' });
-
-        // Opacity of the symbol
-        $("#symbol" + idStation).css({ opacity: '1' });
-
-    } else if (status === 'offline') {
-         //status fields in Dialog
-        $("#" + idStation + "StatusStationOnline").css({ display: 'none' });
-        $("#" + idStation + "StatusStationOffline").css({ display: 'block' });
-
-        // Opacity of the symbol
-        $("#symbol" + idStation).css({ opacity: '0.3' });
-    }
-}
-
-/*
- * Set the status field for Connection to online
- * @param {online,offline} status new status for the selected connection
- */
-function setStatusConnection(status) {
-    if (status === 'online') {
-        //status fields in Dialog
-        $(".connectionStatusOnline").css({ display: 'block' });
-        $(".connectionStatusOffline").css({ display: 'none' });
-
-    } else if (status === 'offline') {
-        //Status fields in Dialog
-        $(".connectionStatusOffline").css({ display: 'block' });
-        $(".connectionStatusOnline").css({ display: 'none' });
-    }
-}
-
-/*
- * Adds or removes the css class overload to the selected station
- * @param {any} idStation the selected station
- * @param {start,stop} status start or stop overload
- */
-function toggleOverload(idStation, status) {
-    if (status === 'start') {
-        $("#symbol" + idStation).addClass("overload");
-    } else if (status === 'stop') {
-        $("#symbol" + idStation).removeClass("overload");
-    }
-}
-
-/*
  * Adds a connection to the selection menu
  * @param {any} idStation name of the selected element
  * @param {any} idConnection name of the connection to be added 
  */
 function addConnectionToDialog(idStation, idConnection, valueConnection, element) {
     //add to the selection
-    $('#connections' + idStation, element).append('<option value="' + valueConnection +'">'+ idConnection + '</option>');
+    $('#connections' + idStation, element).append('<option value="' + valueConnection + '">' + idConnection + '</option>');
+
+    //add consumption
+    var connection = document.createElement('div');
+    connection.innerHTML = `<div class='wrapperStatusConnections'><p class="consumption ${valueConnection}connectionConsumption"></p><p class="centerStatus"> / </p><p class="maxConsumption ${valueConnection}connectionMaximum"></p></div>`;
+    connection.setAttribute('id', 'connectionStatus' + idStation + valueConnection);
+    connection.setAttribute('class', 'connectionStatusContainer');
+    $('#connectionContainer' + idStation, element).append(connection);
+    $('#connectionStatus' + idStation + valueConnection, element).addClass('connectionStatusContainer' + valueConnection);
+
+    //show connection1 when added
+    if ($('#connectionContainer' + idStation, element).children().length === 1) {
+        $('#connectionStatus' + idStation + valueConnection, element).css('display', 'block');
+    }
 }
 
 /*
@@ -288,4 +290,24 @@ function getSelectedConnection(idStation) {
     return $('#connections' + idStation).val();
 }
 
- 
+/*
+ * Changes the selected connection in the Dialog for the selected station
+ * Updates the consumption field
+ * @param {any} idElement,  id of the selected station 
+ */
+function selectionChange(idElement) {
+    var idConnection = getSelectedConnection(idElement);
+    $('#connectionContainer' + idElement).children().css('display', 'none');
+    $('#connectionStatus' + idElement + idConnection).css('display', 'block');
+}
+
+function selectionHovered(idElement, idConnection) {
+    $('#connectionContainer' + idElement).children().css('display', 'none');
+    $('#connectionStatus' + idElement + idConnection).css('display', 'block');
+
+    if (api.stores["connection"].items[idConnection].disrupted) {
+        $("#setStatus" + idElement).text("Leitung aktivieren");
+    } else {
+        $("#setStatus" + idElement).text("Leitung deaktivieren");
+    }
+}
