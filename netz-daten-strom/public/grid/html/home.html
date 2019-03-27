@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <!-- The home page -->
 <head>
@@ -13,24 +13,56 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/home.css">
 
+	
     <script src="../frameworks/jquery.js"></script>
     <script src="../frameworks/d3.js"></script>
 
     <script scr="../js/api.js"></script>
+    <script src="../js/tutorial.js"></script>
 
-    <script type="text/javascript" src="../../dpd.js"></script>
-    <script type="text/javascript" src="../../store.js"></script>
-    <script type="text/javascript" src="../../netzDatenStrom.js"></script>
-
+    <!--Links for local running API-->
+    <script type="text/javascript" src="http://localhost/dpd.js"></script>
+    <script type="text/javascript" src="http://localhost/store.js"></script>
+    <script type="text/javascript" src="http://localhost/netzDatenStrom.js"></script>
+   <!-- Links for API running in the university 
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/store.js"></script>
+    <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/netzDatenStrom.js"></script>
     <script type="text/javascript" src="../js/api.js"></script>
-    <script src="../js/home.js"></script>
+    <script src="../js/home.js"></script>-->
 
     <title>Netzleitsystem-Testumgebung - Home</title>
 </head>
 
 <body>
+	<!-- Tutorial -->
+    <div id="tutorial-container">
+    	<div class="tutorial-header">
+    		<div class="right"> 
+    			<div id="link-tutorial">
+       			<a onclick="hideInfo()" href="#">
+       				<div id="close-tutorial"></div>
+       			</a>
+       			</div>
+    		</div>
+    		<div class="tutorial-title">
+				Tutorial
+			</div>
+    	</div>
+    	<iframe src="tutorial.html" height="100%" width="100%"></iframe>
+    </div>
+
+	<!-- Info button -->
+       	<div class="right">
+       		<div id="link-info">
+       		<a onclick="showInfo()" href="#">
+       			<div id="info-btn"></div>
+       		</a>
+       		</div>
+       	</div>
+
     <header id="HomeHeader">
-        <h1 class="welcome-title">Willkommen in der prototypischen Netzleitsystem Testumgebung</h1>
+        <p class="text-medium center"Willkommen in der prototypischen Netzleitsystem Testumgebung</p>
     </header>
 
     <div id="HomeLogo" class="project-logo"></div>

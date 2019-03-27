@@ -1,4 +1,4 @@
-﻿/*
+/*
     The stylesheet for the settings page
 */
 
@@ -668,4 +668,28 @@ body, html {
 #rbgLabelS:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+/*
+	Tutorial
+*/
+#tutorial-container {
+	z-index: 2;
+}
+
+#info-btn{
+	margin-top: 0.6vh;
+	width: 1.5vw;
+	height: 1.5vw;
+	background: url("../res/img/info.png") no-repeat;
+	background-size: 90% 90%;
+}
+
+#info-btn:hover {
+    margin-top: 0.6vh;
+    background-size: 90% 90%;
+}
+
+#link-info{
+	margin-right:1.5vw;
 }

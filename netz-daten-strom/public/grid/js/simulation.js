@@ -24,9 +24,9 @@ function checkTime(i) {
     return i;
 }
 
-
-function onCloseRequest() {
-    if (confirm("Wollen Sie die Simulation wirklich beenden?")) {
-        window.history.back();
-    }
+/*
+	This function load the energy grid
+*/
+function onLoad() {
+    document.getElementById("grid-container").innerHTML='<object id="container" type="type/html" data="grid.html" ></object>';
 }

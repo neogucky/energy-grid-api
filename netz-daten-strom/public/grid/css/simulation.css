@@ -9,10 +9,6 @@
 	float: left;
 }
 
-.right {
-	float: right;
-}
-
 /*
 	Texts
 */
@@ -63,7 +59,7 @@
 }
 
 #time {
-  text-align: right;
+  text-align: center;
   color: white;
   margin-top: 0.5vw;
   margin-right:2vw;
@@ -82,4 +78,22 @@
 	height: 96%;
 	background-color: #f2f2f2;
 	overflow: hidden;
+}
+
+/*
+	Tutorial
+*/
+#tutorial-container {
+	z-index: 2;
+}
+
+#info-btn{
+	margin-top: 0.6vh;
+	background: url("../res/img/info.png") no-repeat;
+	background-size: 85% 85%;
+}
+
+#info-btn:hover {
+    margin-top: 0.6vh;
+    background-size: 85% 85%;
 }

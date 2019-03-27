@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -13,11 +13,24 @@
     <link rel="stylesheet" href="../css/simulation.css">
 
     <script src="../js/simulation.js"></script>
+    <script src="../js/tutorial.js"></script>
 
     <title>Netzleitsystem-Testumgebung - Simulation</title>
 
 </head>
 <body onload="startTime()">
+	<!-- Tutorial -->
+      <div id="tutorial-container">
+    	<div class="tutorial-header">
+    		<div class="right"> 
+    			<div id="link-tutorial">
+       				<div onClick="hideInfo()" id="close-tutorial"></div>
+       			</div>
+    		</div>
+    		<div class="tutorial-title">Tutorial</div>
+    	</div>
+    	<iframe src="tutorial.html" height="100%" width="100%"></iframe>
+    </div>
 
     <!-- Navigationbar -->
     <div id="navbar" class="sidebar">
@@ -29,9 +42,16 @@
             </div>
         </div>
 
-        <!-- Time -->
-        <div id="time" class="text-medium right"></div>
-
+		<!-- Info button -->
+		<div class="right">
+       		<div id="link-info">
+       			<div onClick="showInfo()" id="info-btn"></div>
+       		</div>
+       	</div>
+       	
+       	<!-- Time -->
+        <div id="time" class="text-medium"></div>
+       	
     </div>
 
     <!--This is the container for the energy grid. Leave this empty.-->
