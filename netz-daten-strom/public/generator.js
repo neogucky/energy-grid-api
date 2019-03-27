@@ -623,13 +623,13 @@ $(document).ready(function() {
 		}
 	}
 	
-	function generateAlarm(importance, type, alarmType, errorMessage, alarmSource){
+	function generateAlarm(importance, triggerType, type, errorMessage, alarmSource){
 		dpd.alarm.post({
 				dateTime: new Date().getTime(), 
 				importance: importance,
-				triggerTypeID: type,
+				triggerTypeID: triggerType,
 				triggerID: alarmSource.id,
-				alarmType: alarmType,
+				alarmType: type,
 				message: errorMessage,
 				areaID: alarmSource.areaID,
 				needsAck: importance > 7,

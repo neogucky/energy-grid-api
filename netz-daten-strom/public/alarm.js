@@ -2,6 +2,7 @@ var meldungen = ['OrtsNetzstation Dankwartsgrube überschreitet maximale Kapazit
 
 $(document).ready(function() {
 	
+	var lastScroll = 0;
 	var stores = [];
 	//initialize stores (dirty sequential chaining)
 	stores['transformerstation'] = new DPDStore('transformerstation', function() { stores['substation'].connect(); });
@@ -37,10 +38,19 @@ $(document).ready(function() {
 	stores['alarm'].setNewListener(function(alarm) {
 		console.log('new');
 		addAlarm(alarm);
-		$('html, body').animate({
-			scrollTop: $('#' + alarm.id).offset().top
-		}, 2000);
+		scrollToAlarm(alarm.id);
 	});
+	
+	function scrollToAlarm(id){
+		
+		var currentTime = Date.now();
+		if (lastScroll + 1000 < currentTime){
+			lastScroll = currentTime;
+			$('html, body').animate({
+				scrollTop: $('#' + id).offset().top
+			}, 1000);
+		}
+	}
 	
 	stores['alarm'].setDeleteListener(function(alarm) {
 		console.log('delete: ' + alarm.id);
@@ -60,16 +70,16 @@ $(document).ready(function() {
 	function getArea(areaID){
 		var areaObject = stores['area'].getByID(areaID);
 		if (areaObject.error){
-			return areaObject.message;
+			console.log(areaObject.message);
+			return "Unbekannt";
 		} else {
 			return areaObject.name;
 		}
 	}
-	
-	function getDateTime (timestamp) {
+		
+	function getDateTime(timestamp) {
 		var date = new Date(timestamp);
-		console.log(date);
-		return date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(); 
+		return pad(date.getDate()) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds()); 
 	}
 	
 	function getTrigger(triggerTypeID, triggerID){
@@ -113,6 +123,9 @@ $(document).ready(function() {
 		  // Do something
 		});
 	}
-		
 	
+	function pad(val){
+		return ("" + val).padStart(2,"0");
+	}
+				
 });
