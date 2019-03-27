@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!-- The tutorial page -->
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="author" content="Bachelorprojekt 2017/18">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../res/img/favicon.png">
+	<link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/tutorial.css">  
+</head> 
+<body>
+<!-- Keyframes -->
+
+<!-- Nested List of the Videochapters -->
+
+	<div class="left">
+	
+		<h1 class="welcome-title">Navigation</h1>
+		
+	     <ul>
+			<li><button onclick="playSection(0, 41)" class="menu-button-blue text-medium" type="button">Was ist ein Netzleitplan</button>
+				<ul>
+				<li><button onclick="playSection(10, 29 )" class="menu-button-blue text-medium-pad" type="button">Hoch- und Niederspannungsnetz</button></li>
+				<li><button onclick="playSection(29, 41)" class="menu-button-blue text-medium-pad" type="button">Mittelspannungsnetz</button></li>
+				</ul>
+			</li>
+			
+			<li><button onclick="playSection( 43, 105)" class="menu-button-blue text-medium" type="button">Der Netzleitplan</button>
+				<ul>
+				<li><button onclick="playSection(44, 59)" class="menu-button-blue text-medium-pad" type="button">Übersicht</button></li>
+				<li><button onclick="playSection(59, 72)" class="menu-button-blue text-medium-pad" type="button">Umspannwerke</button></li>
+				<li><button onclick="playSection(71, 81)" class="menu-button-blue text-medium-pad" type="button">Ortsnetzstationen</button></li>
+				<li><button onclick="playSection(81, 93)" class="menu-button-blue text-medium-pad" type="button">Kraftwerke</button></li>
+				<li><button onclick="playSection(92, 106)" class="menu-button-blue text-medium-pad" type="button">Leitungen</button></li>
+				</ul>
+			</li>	
+			
+			<li><button onclick="playSection(106, 189)" class="menu-button-blue text-medium" type="button">Das Stationsmenü</button>
+				<ul>
+				<li><button onclick="playSection(108, 114)" class="menu-button-blue text-medium-pad" type="button">Aufrufen</button></li>
+				<li><button onclick="playSection(113, 124)" class="menu-button-blue text-medium-pad" type="button">Übersicht</button></li>
+				<li><button onclick="playSection(124, 151)" class="menu-button-blue text-medium-pad" type="button">Leitung schalten</button></li>
+				<li><button onclick="playSection(151, 169)" class="menu-button-blue text-medium-pad" type="button">Doppelversorgung</button></li>
+				<li><button onclick="playSection(169, 189)" class="menu-button-blue text-medium-pad" type="button">Überbelastung</button></li>
+				</ul>
+			</li>
+		
+	        
+	     </ul>
+		
+	        
+	     </ul>
+	</div>
+<!-- End of Nested List of the Videochapters -->
+	
+	
+<div class="flexdiv">	
+<!-- Video -->
+	<div class="topRight">
+		
+			<video onload="init()" id="tutorialVideo" controls>
+  				<source src="../res/vid/tutorial.mp4" type="video/mp4">
+  				Your browser does not support HTML5 video.
+			</video>
+		
+		
+	</div>
+<!-- End of Videodiv -->	
+	
+<!-- Space for a Legend PNG File -->
+	<div class="bottomRight">	
+		<img src="../res/img/legend_grey.png" alt="Legende" style="width:100%;max-width:500px">
+	</div>
+<!-- End of Space for Legend -->
+</div>
+
+<script src="../js/tutorial.js"></script> <!-- solution for loading time issue -->
+</body>
+</html>

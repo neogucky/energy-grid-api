@@ -1,0 +1,103 @@
+/*
+    The stylesheet for the tutorial page
+*/
+
+/*
+    General
+*/
+body {
+    background-color: darkgray;
+    display: flex;
+    flex-direction: row; 
+}
+
+ul {
+  list-style-type: none;
+  margin: 0px 0px;
+}
+
+li {
+  list-style-type: none;
+  margin: 0px 0px;
+}
+
+/*	DIVs	*/
+.flexdiv {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 30vh;
+	justify-content: space-between;
+	
+}
+
+.left {
+	margin-left: 1vw;
+	width: 25vw;
+	height: 100vh;
+	min-width: 200px; 
+}
+
+.topRight {
+    margin-top:15px;
+}
+
+.bottomRight {
+	width:100%;
+	max-width: 400px;
+}
+
+
+/*	Buttons		*/
+
+.menu-button-blue {
+   border: #197dc1 1px solid;
+	border-radius: 6px;
+	padding: 0px 5px;
+	font-size: 12px;
+}
+@media all and (min-width: 1000px) {
+	.text-medium {
+		font-size: 15px;
+		margin: 1vh 1vw 1vh 1vw;
+	}
+}
+
+@media all and (max-width: 1000px) {
+    .text-medium {
+	font-size: 1.6vw;
+	margin: 1vh 1vw 1vh 1vw;
+    }
+}
+
+@media all and (min-width: 1000px) {
+	.text-medium-pad {
+		font-size: 12px;
+		margin: 1vh 1vw 1vh 1vw;
+		margin-left: 50px;
+	}
+}
+
+@media all and (max-width: 1000px) {
+    .text-medium-pad {
+	font-size: 1.5vw;
+	margin: 1vh 1vw 1vh 1vw;
+	margin-left: 50px;
+    }
+}
+
+
+
+/*	Video	*/
+#tutorialVideo {
+	border: 1px solid;
+	float: top;
+	padding: 0em;
+	height: auto;
+    width: 60vw;    
+}
+
+/*	Text	*/
+.welcome-title {
+	margin: 1vh 0vw 1vh 0vw;
+}
+
