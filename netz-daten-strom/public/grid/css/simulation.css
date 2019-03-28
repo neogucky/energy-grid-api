@@ -30,7 +30,7 @@
 #close-btn{
 	width: 400px;
 	height: 36px;
-	background: url("http://netzdatenstrom.imis.uni-luebeck.de//assets/images/logo_50.png") no-repeat;
+	background: url("http://netzdatenstrom.imis.uni-luebeck.de/assets/images/logo_50.png") no-repeat;
 	background-size: contain;
 }
 
@@ -49,11 +49,21 @@
 /*
 	Grid
 */
-#container {
+#grid-container {
 	position: absolute;
+	top: 60px;
+	bottom: 0;
 	left: 0;
 	right: 0;
-	top: 60px;
+	overflow: hidden;
+}
+#container {
+	position: relative;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
 	bottom: 0;
 	background-color: #f2f2f2;
 	overflow: hidden;

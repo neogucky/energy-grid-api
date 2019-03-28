@@ -6,9 +6,9 @@
     General
 */
 body {
-    background-color: darkgray;
+    background-color: #f2f2f2;;
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
 }
 
 ul {
@@ -25,16 +25,14 @@ li {
 .flexdiv {
 	display: flex;
 	flex-wrap: wrap;
-	margin-bottom: 30vh;
-	justify-content: space-between;
-	
+  justify-content: space-between;
 }
 
 .left {
 	margin-left: 1vw;
 	width: 25vw;
 	height: 100vh;
-	min-width: 200px; 
+	min-width: 200px;
 }
 
 .topRight {
@@ -49,12 +47,13 @@ li {
 
 /*	Buttons		*/
 
-.menu-button-blue {
-   border: #197dc1 1px solid;
-	border-radius: 6px;
-	padding: 0px 5px;
-	font-size: 12px;
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
 }
+
 @media all and (min-width: 1000px) {
 	.text-medium {
 		font-size: 15px;
@@ -93,11 +92,10 @@ li {
 	float: top;
 	padding: 0em;
 	height: auto;
-    width: 60vw;    
+    width: 60vw;
 }
 
 /*	Text	*/
 .welcome-title {
 	margin: 1vh 0vw 1vh 0vw;
 }
-
