@@ -1,63 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-
-    <meta charset="utf-8" />
-    <meta name="author" content="Bachelorprojekt 2017/18">
-    <meta name="robots" content="noindex,nofollow">
-
-    <link rel="shortcut icon" type="image/x-icon" href="../res/img/favicon.png">
-
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/simulation.css">
-
-    <script src="../js/simulation.js"></script>
-    <script src="../js/tutorial.js"></script>
-
-    <title>Netzleitsystem-Testumgebung - Simulation</title>
-
-</head>
-<body onload="startTime()">
-	<!-- Tutorial -->
+   <head>
+      <meta charset="utf-8" />
+      <meta name="author" content="Bachelorprojekt 2017/18">
+      <meta name="robots" content="noindex,nofollow">
+      <link rel="shortcut icon" type="image/x-icon" href="../res/img/favicon.png">
+      <link rel="stylesheet" href="../css/reset.css">
+      <link rel="stylesheet" href="../css/main.css">
+      <link rel="stylesheet" href="../css/simulation.css">
+      <script src="../js/simulation.js"></script>
+      <script src="../js/tutorial.js"></script>
+      <title>Netzleitsystem-Testumgebung - Simulation</title>
+   </head>
+   <body onload="startTime()">
+      <!-- Tutorial -->
       <div id="tutorial-container">
-    	<div class="tutorial-header">
-    		<div class="right"> 
-    			<div id="link-tutorial">
-       				<div onClick="hideInfo()" id="close-tutorial"></div>
-       			</div>
-    		</div>
-    		<div class="tutorial-title">Tutorial</div>
-    	</div>
-    	<iframe src="tutorial.html" height="100%" width="100%"></iframe>
-    </div>
-
-    <!-- Navigationbar -->
-    <div id="navbar" class="sidebar">
-
-        <!-- Close button -->
-        <div class="left">
-            <div id="link-btn">
-                <div onClick="onCloseRequest()" id="close-btn"></div>
+         <div class="tutorial-header">
+            <div class="right">
+               <div id="link-tutorial">
+                  <div onclick="hideInfo()" id="close-tutorial"></div>
+               </div>
             </div>
-        </div>
-
-		<!-- Info button -->
-		<div class="right">
-       		<div id="link-info">
-       			<div onClick="showInfo()" id="info-btn"></div>
-       		</div>
-       	</div>
-       	
-       	<!-- Time -->
-        <div id="time" class="text-medium"></div>
-       	
-    </div>
-
-    <!--This is the container for the energy grid. Leave this empty.-->
-    <div id="grid-container">
-        <iframe id="container" src="grid.html" height="100%" width="100%"></iframe>
-    </div>
-
-</body>
+            <div class="tutorial-title">Tutorial</div>
+         </div>
+         <iframe src="tutorial.html" height="100%" width="100%"></iframe>
+      </div>
+      <!-- Navigationbar -->
+      <div id="navbar" class="sidebar">
+         <!-- Close button -->
+         <div class="left">
+            <div id="link-btn">
+               <div onclick="onCloseRequest()" id="close-btn"></div>
+            </div>
+         </div>
+         <!-- Info button -->
+         <div class="right">
+            <div id="link-info">
+               <div onclick="showInfo()" id="info-btn"></div>
+            </div>
+         </div>
+         <!-- Time -->
+         <div id="time" class="text-medium"></div>
+      </div>
+      <div class="nds-header-navbarstripe"></div>
+      <!--This is the container for the energy grid. Leave this empty.-->
+      <div id="grid-container">
+         <iframe id="container" src="grid.html" height="100%" width="100%"></iframe>
+      </div>
+   </body>
 </html>

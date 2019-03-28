@@ -27,29 +27,10 @@
 /*
 	Navigationbar
 */
-#navbar {
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	right: 0%;
-	padding-bottom: 0.5vw;
-	width: 100%;
-	height: 4%;
-}
-
 #close-btn{
-	margin-top: 0.8vh;
-	width: 1vw;
-	height: 1vw;
-	background: url("../res/img/poweroff.png") no-repeat;
-	background-size: contain;
-}
-
-#close-btn:hover {
-    margin-top: 0.8vh;
-    width: 1vw;
-    height: 1vw;
-    background: url("../res/img/poweroff_hover.png") no-repeat;
+	width: 400px;
+	height: 36px;
+	background: url("http://netzdatenstrom.imis.uni-luebeck.de//assets/images/logo_50.png") no-repeat;
 	background-size: contain;
 }
 
@@ -60,7 +41,7 @@
 
 #time {
   text-align: center;
-  color: white;
+  color: black;
   margin-top: 0.5vw;
   margin-right:2vw;
 }
@@ -70,12 +51,10 @@
 */
 #container {
 	position: absolute;
-	left: 0%;
-	right: 0%;
-	top: 4%;
-	bottom: 0%;
-	width: 100%;
-	height: 96%;
+	left: 0;
+	right: 0;
+	top: 60px;
+	bottom: 0;
 	background-color: #f2f2f2;
 	overflow: hidden;
 }
@@ -87,13 +66,14 @@
 	z-index: 2;
 }
 
-#info-btn{
+#info-btn,
+#info-btn:hover{
 	margin-top: 0.6vh;
 	background: url("../res/img/info.png") no-repeat;
 	background-size: 85% 85%;
+	filter: invert(100%);
 }
-
+#close-btn:hover
 #info-btn:hover {
-    margin-top: 0.6vh;
-    background-size: 85% 85%;
+	cursor: poiner;
 }

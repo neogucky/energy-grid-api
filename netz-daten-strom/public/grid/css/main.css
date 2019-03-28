@@ -23,9 +23,27 @@ a {
     }
 
 .sidebar {
-    background-color: #404040;
+    background-color: #f2f2f2;
 }
 
+/*
+  header
+*/
+#navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  padding-top: 10px;
+}
+
+.nds-header-navbarstripe {
+  background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
+  height: 4px;
+  top: 56px;
+  position: relative;
+}
 
 /*
     Graphics
@@ -243,7 +261,7 @@ a {
         -o-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
         transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
     }
-    
+
 /*
 	Tutorial
 */
