@@ -40,7 +40,7 @@ a {
 
 .nds-header-navbarstripe {
   background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
-  height: 4px;
+  height: 2px;
   top: 56px;
   position: relative;
 }
