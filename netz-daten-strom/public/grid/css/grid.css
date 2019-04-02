@@ -1,6 +1,7 @@
-﻿ /*
+﻿/*
     The stylesheet for the diagram module
 */
+
 body {
     position: absolute;
     bottom: 0;
@@ -17,11 +18,11 @@ body {
 }
 
 
-
 /* Elements */
 
 
 /* The elementsymbol itself*/
+
 .stationSymbol {
     position: absolute;
     top: 50%;
@@ -48,23 +49,30 @@ body {
 
 /*Dialog in the left*/
 
+
 /*Set visibility here*/
+
 .dialogLeft {
     display: none;
     height: 24vh;
     width: 22vh;
 }
 
+
 /*Dialog in the right*/
 
+
 /*Set visibility here*/
+
 .dialogRight {
     display: none;
     height: 24vh;
     width: 22vh;
 }
 
+
 /*Content of the dialog on the right*/
+
 .dialogContentRight {
     border-bottom-left-radius: 0.3vw;
     border-bottom-right-radius: 0.3vw;
@@ -76,12 +84,14 @@ body {
     width: 90%;
     overflow: hidden;
     background-color: darkgray;
-    -webkit-box-shadow: 9px 19px 49px -13px rgba(0,0,0,0.28);
-    -moz-box-shadow: 9px 19px 49px -13px rgba(0,0,0,0.28);
-    box-shadow: 9px 19px 49px -13px rgba(0,0,0,0.28);
+    -webkit-box-shadow: 9px 19px 49px -13px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: 9px 19px 49px -13px rgba(0, 0, 0, 0.28);
+    box-shadow: 9px 19px 49px -13px rgba(0, 0, 0, 0.28);
 }
 
+
 /*Content of the dialog on the left*/
+
 .dialogContentLeft {
     border-bottom-left-radius: 0.3vw;
     border-bottom-right-radius: 0.3vw;
@@ -92,12 +102,14 @@ body {
     height: auto;
     width: 90%;
     background-color: darkgray;
-    -webkit-box-shadow: -9px 19px 49px -13px rgba(0,0,0,0.28);
-    -moz-box-shadow: -9px 19px 49px -13px rgba(0,0,0,0.28);
-    box-shadow: -9px 19px 49px -13px rgba(0,0,0,0.28);
+    -webkit-box-shadow: -9px 19px 49px -13px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: -9px 19px 49px -13px rgba(0, 0, 0, 0.28);
+    box-shadow: -9px 19px 49px -13px rgba(0, 0, 0, 0.28);
 }
 
+
 /*Connection to the element for right dialog*/
+
 .triangleRight {
     position: absolute;
     top: 4.5vh;
@@ -114,7 +126,9 @@ body {
     border-color: transparent darkgray;
 }
 
+
 /*Connection to the element for left dialog*/
+
 .triangleLeft {
     position: absolute;
     top: 4.5vh;
@@ -131,7 +145,9 @@ body {
     border-color: transparent darkgrey transparent transparent;
 }
 
+
 /*Headelement of the dialog*/
+
 .dialogStationTitle {
     border-top-left-radius: 0.3vw;
     border-top-right-radius: 0.3vw;
@@ -142,45 +158,49 @@ body {
     display: flex;
 }
 
-    /*Elementname*/
-    .dialogStationTitle p {
-        width: 97%;
-        padding-bottom:0.5vh;
-        min-height: 8%;
-        float: left;
-        overflow: hidden;
-        font-size: 2vh;
-        -ms-hyphens: auto;
-        -webkit-hyphens: auto;
-        hyphens: auto;
-    }
+
+/*Elementname*/
+
+.dialogStationTitle p {
+    width: 97%;
+    padding-bottom: 0.5vh;
+    min-height: 8%;
+    float: left;
+    overflow: hidden;
+    font-size: 2vh;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
 
 .wrapperDialog {
     width: 77%;
     min-height: 8%;
-    max-height:30%;
+    max-height: 30%;
     float: left;
     word-wrap: break-word;
     font-size: 0.9vw;
     margin-left: 0.25vw;
-    margin-top:.5vw;
-    margin-bottom:.5vw;
+    margin-top: .5vw;
+    margin-bottom: .5vw;
     overflow: hidden;
 }
 
 .wrapperStatusConnections p {
-    float:left;
+    float: left;
 }
 
- .wrapperStatusConnections p:last-child {
-     float:none;
- }
+.wrapperStatusConnections p:last-child {
+    float: none;
+}
 
- .wrapperStatusConnections p:first-child {
-     padding-left: 15px;
- }
+.wrapperStatusConnections p:first-child {
+    padding-left: 15px;
+}
+
 
 /*Close button*/
+
 .dialogClose {
     border-top-right-radius: 0.3vw;
     overflow: auto;
@@ -192,27 +212,29 @@ body {
     background-position: center;
 }
 
-    .dialogClose:hover {
-        background-color: rgb(144,144,144)
-    }
+.dialogClose:hover {
+    background-color: rgb(144, 144, 144)
+}
+
 
 /*Status of the element*/
+
 .stationStatusOnline {
-    margin-top:5%;
+    margin-top: 5%;
     background-color: green;
     margin-left: 5%;
     height: 4vh;
     width: 17.8vh;
 }
 
-    .stationStatusOnline p {
-        font-size: 2vh;
-        color: white;
-        text-align: center;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+.stationStatusOnline p {
+    font-size: 2vh;
+    color: white;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .stationStatusOffline {
     margin-top: 5%;
@@ -223,26 +245,30 @@ body {
     width: 90%;
 }
 
-    .stationStatusOffline p {
-        font-size: 2vh;
-        color: white;
-        text-align: center;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+.stationStatusOffline p {
+    font-size: 2vh;
+    color: white;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 
 /*parting line*/
+
 .hLine {
     margin-top: 5%;
-    margin-right:5%;
-    margin-left:5%;
+    margin-right: 5%;
+    margin-left: 5%;
     width: 90%;
     height: 0.25vh;
     background-color: gray;
 }
 
+
 /*Connection selector*/
+
 .connections {
     margin-top: 5%;
     margin-left: 5%;
@@ -250,7 +276,9 @@ body {
     font-size: 15px;
 }
 
+
 /*Status of selected element*/
+
 .connectionStatusOnline {
     display: block;
     background-color: green;
@@ -260,14 +288,14 @@ body {
     width: 90%;
 }
 
-    .connectionStatusOnline p {
-        font-size: 2vh;
-        color: white;
-        text-align:center;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+.connectionStatusOnline p {
+    font-size: 2vh;
+    color: white;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .connectionStatusOffline {
     display: none;
@@ -278,16 +306,18 @@ body {
     width: 90%;
 }
 
-    .connectionStatusOffline p {
-        font-size: 2vh;
-        color: white;
-        text-align: center;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+.connectionStatusOffline p {
+    font-size: 2vh;
+    color: white;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 
 /*Button for toggling the status of selected connection*/
+
 .btn-setStatus {
     font-size: 1.5vh;
     margin-top: 5%;
@@ -298,7 +328,9 @@ body {
     width: 89%;
 }
 
+
 /* Class for the overload style*/
+
 .overload {
     animation: blinker 0.8s cubic-bezier(.5, 0, 1, 1) infinite alternate;
 }
