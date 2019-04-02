@@ -4,194 +4,195 @@
       <meta charset="UTF-8">
       <title>Alarmliste</title>
       <style type="text/css">
-			@font-face {
-				font-family: "SansSafety";
-				src: url("SansSafety-Regular.otf") format("opentype");
-				}
+         @font-face {
+            font-family: "SansSafety";
+            src: url("SansSafety-Regular.otf") format("opentype");
+         }
 
 
-				/* font optimized for safety critical systems */
+         /* font optimized for safety critical systems */
 
-				body,
-				p,
-				h1,
-				h2,
-				h3,
-				h4,
-				h5,
-				h6,
-				a,
-				div,
-				span,
-				li,
-				input,
-				button {
-				font-family: "SansSafety", Verdana!important;
-				}
+         body,
+         p,
+         h1,
+         h2,
+         h3,
+         h4,
+         h5,
+         h6,
+         a,
+         div,
+         span,
+         li,
+         input,
+         button {
+            font-family: "SansSafety", Verdana!important;
+         }
 
-				body {
-				margin: 0;
-				background-color: #F2F2F2;
-				font-size: 16px;
-				font-weight: 400;
-				text-rendering: optimizeLegibility;
-				}
+         body {
+            margin: 0;
+            background-color: #F2F2F2;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+         }
 
-				#navbar {
-				position: relative;
-				top: 0;
-				left: 0;
-				right: 0;
-				height: 60px;
-				padding-top: 10px;
-				}
+         #navbar {
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            padding-top: 10px;
+         }
 
-				#navbar img {
-				height: 36px;
-				margin-top: 7px;
-				margin-left: 20px;
-				}
+         #navbar img {
+            height: 36px;
+            margin-top: 7px;
+            margin-left: 20px;
+         }
 
-				.nds-header-navbarstripe {
-				background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
-				height: 4px;
-				position: relative;
-				}
+         .nds-header-navbarstripe {
+            background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
+            height: 2px;
+            position: relative;
+         }
 
-				.container {
-				width: 1400px;
-				margin-left: auto;
-				margin-right: auto;
-				}
+         .container {
+            width: 100%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+         }
 
-				div.table-title {
-				display: block;
-				margin: auto;
-				padding: 5px;
-				width: 100%;
-				}
+         div.table-title {
+            display: block;
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+         }
 
-				.table-title h3 {
-				color: #252525;
-				font-size: 30px;
-				font-weight: 400;
-				font-style: normal;
-				text-transform: uppercase;
-				}
+         .table-title h3 {
+            color: #252525;
+            font-size: 30px;
+            font-weight: 400;
+            font-style: normal;
+            text-transform: uppercase;
+         }
 
 
-				/*** Table Styles **/
+         /*** Table Styles **/
 
-				.table-fill {
-				background: white;
-				border-radius: 3px;
-				border-collapse: collapse;
-				margin: auto;
-				padding: 5px;
-				width: 100%;
-				box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-				animation: float 5s infinite;
-				}
+         .table-fill {
+            background: white;
+            border-radius: 3px;
+            border-collapse: collapse;
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+         }
 
-				th {
-				font-size: 18px;
-				font-weight: 100;
-				padding: 24px;
-				text-align: left;
-				vertical-align: middle;
-				}
+         th {
+            font-size: 16px;
+            font-weight: 100;
+            padding: 20px;
+            text-align: left;
+            vertical-align: middle;
+         }
 
-				th:first-child {
-				border-top-left-radius: 3px;
-				}
+         th:first-child {
+            border-top-left-radius: 3px;
+         }
 
-				th:last-child {
-				border-top-right-radius: 3px;
-				border-right: none;
-				}
+         th:last-child {
+            border-top-right-radius: 3px;
+            border-right: none;
+         }
 
-				thead {
-				border-bottom-: 1px solid #C1C3D1;
-				}
+         thead {
+            border-bottom-: 1px solid #C1C3D1;
+         }
 
-				tr {
-				color: #666B85;
-				font-size: 16px;
-				font-weight: normal;
-				text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
-				}
+         tr {
+            color: #666B85;
+            font-size: 16px;
+            font-weight: normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+         }
 
-				tr:hover td {
-				background: #4E5066;
-				color: #FFFFFF;
-				border-top: 1px solid #22262e;
-				}
+         tr:hover td {
+            background: #4E5066;
+            color: #FFFFFF;
+            border-top: 1px solid #22262e;
+         }
 
-				tr:first-child {
-				border-top: none;
-				}
+         tr:first-child {
+            border-top: none;
+         }
 
-				tr:last-child {
-				border-bottom: none;
-				}
+         tr:last-child {
+            border-bottom: none;
+         }
 
-				tr:nth-child(odd) td {
-				background: #EBEBEB;
-				}
+         tr:nth-child(odd) td {
+            background: #EBEBEB;
+         }
 
-				tr:nth-child(odd):hover td {
-				background: #4E5066;
-				}
+         tr:nth-child(odd):hover td {
+            background: #4E5066;
+         }
 
-				tr:last-child td:first-child {
-				border-bottom-left-radius: 3px;
-				}
+         tr:last-child td:first-child {
+            border-bottom-left-radius: 3px;
+         }
 
-				tr:last-child td:last-child {
-				border-bottom-right-radius: 3px;
-				}
+         tr:last-child td:last-child {
+            border-bottom-right-radius: 3px;
+         }
 
-				td {
-				background: #FFFFFF;
-				padding: 12px 16px;
-				text-align: left;
-				vertical-align: middle;
-				font-weight: 300;
-				font-size: 16px;
-				}
+         td {
+            background: #FFFFFF;
+            padding: 12px 16px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 16px;
+         }
 
-				td:last-child {
-				border-right: 0px;
-				}
+         td:last-child {
+            border-right: 0px;
+         }
 
-				th.text-left,
-				td.text-left {
-				text-align: left;
-				}
+         th.text-left,
+         td.text-left {
+            text-align: left;
+         }
 
-				th.text-center,
-				td.text-center {
-				text-align: center;
-				}
+         th.text-center,
+         td.text-center {
+            text-align: center;
+         }
 
-				a {
-				cursor: pointer!important;
-				}
+         a {
+            cursor: pointer!important;
+         }
 
-				td.importance_6,
-				td.importance_7,
-				td.importance_8 {
-				background-color: orange!important;
-				color: white;
-				font-weight: bold;
-				}
+         td.importance_6,
+         td.importance_7,
+         td.importance_8 {
+            background-color: orange!important;
+            color: white;
+            font-weight: bold;
+         }
 
-				td.importance_9,
-				td.importance_10 {
-				background-color: red!important;
-				color: white;
-				font-weight: bold;
-				}
+         td.importance_9,
+         td.importance_10 {
+            background-color: red!important;
+            color: white;
+            font-weight: bold;
+         }
       </style>
    </head>
    <body>
@@ -221,7 +222,7 @@
          </table>
       </div>
       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2400/dpd.js"></script>
+      <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
       <script type="text/javascript" src="store.js"></script>
       <script type="text/javascript" src="netzDatenStrom.js"></script>
       <script type="text/javascript" src="alarm.js"></script>
