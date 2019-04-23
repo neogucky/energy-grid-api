@@ -35,6 +35,8 @@
             font-size: 16px;
             font-weight: 400;
             text-rendering: optimizeLegibility;
+            height: 100%;
+            overflow: hidden;
          }
 
          #navbar {
@@ -43,7 +45,7 @@
             left: 0;
             right: 0;
             height: 60px;
-            background-color: white;
+            background-color: #F2F2F2;
             padding-top: 10px;
          }
 
@@ -158,7 +160,7 @@
 
          td {
             background: #FFFFFF;
-            padding: 12px 16px;
+            padding: 12px 20px;
             text-align: left;
             vertical-align: middle;
             font-weight: 300;
@@ -183,6 +185,10 @@
             cursor: pointer!important;
          }
 
+        td.importance_5 {
+          background-color: #ffc397!important;
+        }
+
          td.importance_6,
          td.importance_7,
          td.importance_8 {
@@ -197,7 +203,94 @@
             color: white;
             font-weight: bold;
          }
-      </style>
+
+
+         .nds-footer-navbarstripe {
+             background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
+             height: 2px;
+             position: fixed;
+             bottom: 80px;
+             left: 0;
+             right: 0;
+             z-index: 1000;
+         }
+
+         #module_controls {
+         	position: absolute;
+         	bottom: 0;
+         	left:0;
+         	right: 0;
+         	height:80px;
+         	background-color:#f2f2f2;
+             z-index: 1000;
+         }
+
+         #module_controls #headerrow4 .button {
+            position: relative;
+            top: 10px;
+            right: 170px;
+        }
+
+        .button {
+          background-color: #F2F2F2;
+          color: #003A5F;
+          margin-top: 10px;
+          height: 20px;
+          display: inline-block;
+          padding: 2px 12px 8px 12px;
+          margin-bottom: 0;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.42857143;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: middle;
+          -ms-touch-action: manipulation;
+          touch-action: manipulation;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          background-image: none;
+          border: 1px solid transparent;
+          border-radius: 4px;
+          text-decoration: none;
+          box-shadow: 2px 2px 5px 0 #0000006e;
+      }
+
+      #global_controls #headerrow4, #module_controls #headerrow4 {
+          float: right;
+      }
+      #global_controls .controlrow, #module_controls .controlrow {
+          float: left;
+          height: 120px;
+          width: 400px;
+          margin-left: 20px;
+      }
+      table tbody, table thead {
+          display: block;
+      }
+
+      table tbody {
+         overflow: auto;
+        height: calc(100vh - 300px);
+      }
+
+      table {
+          width: 350px; /* can be dynamic */
+      }
+
+     table th:nth-child(1), td:nth-child(1) { min-width: 100px;  max-width: 100px; }
+     table th:nth-child(2), td:nth-child(2) { min-width: 60px; max-width: 60px; }
+     table th:nth-child(3), td:nth-child(3) { min-width: 75px; max-width: 75px; }
+     table th:nth-child(4), td:nth-child(4) { min-width: 558px; max-width: 558px; }
+     table th:nth-child(5), td:nth-child(5) { min-width: 67px; max-width: 67px; }
+     table th:nth-child(6), td:nth-child(6) { min-width: 64px; max-width: 64px; }
+     table th:nth-child(7), td:nth-child(7) { min-width: 64px; max-width: 64px; }
+     table th:nth-child(8), td:nth-child(8) { min-width: 124px; max-width: 124px; }
+
+           </style>
    </head>
    <body>
       <div id="navbar">
@@ -224,6 +317,13 @@
             <tbody id="alarm_list" class="table-hover">
             </tbody>
          </table>
+      </div>
+      <div class="nds-footer-navbarstripe"></div>
+      <div id="module_controls">
+    	<div class="controlrow" id="headerrow4">
+    		<a  id="openModal" class="button primary">Alarme quittieren</a>
+    		<a class="button">Alarm aufnehmen</a>
+    	</div>
       </div>
       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
       <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>

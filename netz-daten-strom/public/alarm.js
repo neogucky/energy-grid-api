@@ -1,7 +1,7 @@
 var meldungen = ['OrtsNetzstation Dankwartsgrube überschreitet maximale Kapazität.', 'OrtsNetzstation Dankwartsgrube arbeitet wieder in den vorgegebenen Parametern. (Entwarnung)', 'Ortsnetzstation Universität sendet keine Daten mehr.', 'Ortsnetzstation Universität sendet wieder Daten (Entwarnung).', 'Blockheizkraftwerk Universität produziert unerwartet hohe Stromkapazitäten.', 'Ortsnetzstation Universität hat einen negativen Verbrauch.', 'Ortsnetzstation Universität kann überproduktion nicht mehr an das Mittelspannungsnetz leiten.',  'Blockheizkraftwerk Universität meldet bevorstehende Kernschmelze.' ];
 
 $(document).ready(function() {
-	
+
 	var lastScroll = 0;
 	var stores = [];
 	//initialize stores (dirty sequential chaining)
@@ -11,12 +11,12 @@ $(document).ready(function() {
 	stores['connection'] = new DPDStore('connection', function() { stores['area'].connect(); });
 	stores['area'] = new DPDStore('area',  function() { stores['alarm'].connect({ $sort: {dateTime: -1}, $limit: 10}); });
 	stores['alarm'] = new DPDStore('alarm', renderAlarmMessages);
-	
+
 	//start the chain
 	stores['transformerstation'].connect();
 
     function addAlarm(message) {
-				
+
         $('<tr class="alarm" id="' + message.id + '">')
             .append('<td class="date">' + getDateTime(message.dateTime) + '</td>')
 			.append('<td class="importance importance_' +  message.importance +'">' + message.importance + '</td>')
@@ -29,10 +29,10 @@ $(document).ready(function() {
             .appendTo('#alarm_list');
 
 		$('<a class="button">')
-			.text('bestätigen')
+			.text('quittieren')
 			.click({id: message.id, isAck : true }, acknowledgeAlarm)
 			.appendTo('#' +  message.id + ' .delete');
-			
+
     }
 
 	stores['alarm'].setNewListener(function(alarm) {
@@ -40,9 +40,9 @@ $(document).ready(function() {
 		addAlarm(alarm);
 		scrollToAlarm(alarm.id);
 	});
-	
+
 	function scrollToAlarm(id){
-		
+
 		var currentTime = Date.now();
 		if (lastScroll + 1000 < currentTime){
 			lastScroll = currentTime;
@@ -51,12 +51,12 @@ $(document).ready(function() {
 			}, 1000);
 		}
 	}
-	
+
 	stores['alarm'].setDeleteListener(function(alarm) {
 		console.log('delete: ' + alarm.id);
 		$('#' + alarm.id).remove();
 	});
-	
+
 	stores['alarm'].setUpdateListener(function(alarm) {
 		console.log('update: ' + alarm.id);
 		//FIXME: update using the addAlarm function to make the dataBinding consistent
@@ -66,7 +66,7 @@ $(document).ready(function() {
 		message.find('.message').text(alarm.message);
 		message.find('.isAcknowledged').text(alarm.isAck);
 	});
-		
+
 	function getArea(areaID){
 		var areaObject = stores['area'].getByID(areaID);
 		if (areaObject.error){
@@ -76,18 +76,18 @@ $(document).ready(function() {
 			return areaObject.name;
 		}
 	}
-		
+
 	function getDateTime(timestamp) {
 		var date = new Date(timestamp);
-		return pad(date.getDate()) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds()); 
+		return pad(date.getDate()) + '.' + pad(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds());
 	}
-	
+
 	function getTrigger(triggerTypeID, triggerID){
 
 		if (stores[triggerTypeID] === undefined){
 			return 'No store for ' + triggerTypeID + ' available';
 		}
-				
+
 		var triggerObject = stores[triggerTypeID].getByID(triggerID);
 		if (triggerObject.error){
 			return triggerObject.message;
@@ -95,7 +95,7 @@ $(document).ready(function() {
 			return triggerObject.name;
 		}
 	}
-		
+
 	function getAlarmType(type){
 		var result;
 		if (alarmType[type]){
@@ -103,29 +103,29 @@ $(document).ready(function() {
 		} else {
 			result = 'unbekannter Alarm';
 		}
-		
+
 		return result;
 	}
-		
+
 	function renderAlarmMessages() {
-		
+
 		console.log('render alarm messages');
-		
+
 		$('#alarm_list').empty();
-		for (var key in stores['alarm'].items) { 
-			addAlarm(stores['alarm'].items[key]); 
+		for (var key in stores['alarm'].items) {
+			addAlarm(stores['alarm'].items[key]);
 		}
-			
+
 	}
-		
+
 	function acknowledgeAlarm (event){
 		dpd.alarm.put(event.data.id, {isAck : event.data.isAck} ,function(result, error) {
 		  // Do something
 		});
 	}
-	
+
 	function pad(val){
 		return ("" + val).padStart(2,"0");
 	}
-				
+
 });
