@@ -216,13 +216,13 @@
          }
 
          #module_controls {
-         	position: absolute;
+         	position: fixed;
          	bottom: 0;
          	left:0;
          	right: 0;
          	height:80px;
          	background-color:#f2f2f2;
-             z-index: 1000;
+          z-index: 1000;
          }
 
          #module_controls #headerrow4 .button {
@@ -286,7 +286,7 @@
      table th:nth-child(3), td:nth-child(3) { min-width: 75px; max-width: 75px; }
      table th:nth-child(4), td:nth-child(4) { min-width: 558px; max-width: 558px; }
      table th:nth-child(5), td:nth-child(5) { min-width: 67px; max-width: 67px; }
-     table th:nth-child(6), td:nth-child(6) { min-width: 64px; max-width: 64px; }
+     table th:nth-child(6), td:nth-child(6) { min-width: 104px; max-width: 104px; }
      table th:nth-child(7), td:nth-child(7) { min-width: 64px; max-width: 64px; }
      table th:nth-child(8), td:nth-child(8) { min-width: 124px; max-width: 124px; }
 
@@ -301,7 +301,7 @@
          <div class="table-title">
             <h3>Alarmmeldungen Raum Lübeck</h3>
          </div>
-         <table class="table-fill">
+         <table id="alarmList" class="table-fill">
             <thead>
                <tr>
                   <th>Zeit</th>

@@ -43,13 +43,12 @@ $(document).ready(function() {
 
 	function scrollToAlarm(id){
 
-		var currentTime = Date.now();
-		if (lastScroll + 1000 < currentTime){
-			lastScroll = currentTime;
-			$('html, body').animate({
-				scrollTop: $('#' + id).offset().top
-			}, 1000);
-		}
+
+			$('#alarm_list')[0].scrollBy({
+			 top: $('#alarm_list')[0].offsetHeight, // Scroll the the end of the tabele's height
+			 behavior: 'smooth'
+		 });
+
 	}
 
 	stores['alarm'].setDeleteListener(function(alarm) {
@@ -68,6 +67,10 @@ $(document).ready(function() {
 	});
 
 	function getArea(areaID){
+		if (areaID === '' || areaID === undefined){
+			return "Oldenburg";
+		}
+
 		var areaObject = stores['area'].getByID(areaID);
 		if (areaObject.error){
 			console.log(areaObject.message);
