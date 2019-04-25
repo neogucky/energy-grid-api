@@ -1,334 +1,381 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8">
-      <title>Alarmliste</title>
-      <style type="text/css">
-         @font-face {
-            font-family: "SansSafety";
-            src: url("SansSafety-Regular.otf") format("opentype");
-         }
+
+<head>
+  <meta charset="UTF-8">
+  <title>Alarmliste</title>
+  <style type="text/css">
+    @font-face {
+      font-family: "SansSafety";
+      src: url("SansSafety-Regular.otf") format("opentype");
+    }
 
 
-         /* font optimized for safety critical systems */
+    /* font optimized for safety critical systems */
 
-         body,
-         p,
-         h1,
-         h2,
-         h3,
-         h4,
-         h5,
-         h6,
-         a,
-         div,
-         span,
-         li,
-         input,
-         button {
-            font-family: "SansSafety", Verdana!important;
-         }
+    body,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    div,
+    span,
+    li,
+    input,
+    button {
+      font-family: "SansSafety", Verdana !important;
+    }
 
-         body {
-            margin: 0;
-            background-color: #F2F2F2;
-            font-size: 16px;
-            font-weight: 400;
-            text-rendering: optimizeLegibility;
-            height: 100%;
-            overflow: hidden;
-         }
+    body {
+      margin: 0;
+      background-color: #F2F2F2;
+      font-size: 16px;
+      font-weight: 400;
+      text-rendering: optimizeLegibility;
+      height: 100%;
+      overflow: hidden;
+    }
 
-         #navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background-color: #F2F2F2;
-            padding-top: 10px;
-         }
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #F2F2F2;
+      padding-top: 10px;
+    }
 
-         #navbar img {
-            height: 36px;
-            margin-top: 7px;
-            margin-left: 20px;
-         }
+    #navbar img {
+      height: 36px;
+      margin-top: 7px;
+      margin-left: 20px;
+    }
 
-         .nds-header-navbarstripe {
-            background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
-            height: 2px;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-         }
+    .nds-header-navbarstripe {
+      background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
+      height: 2px;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+    }
 
-         .container {
-            width: 100%;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-         }
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-         div.table-title {
-            display: block;
-            margin: auto;
-            padding: 5px;
-            width: 100%;
-         }
+    div.table-title {
+      display: block;
+      margin: auto;
+      padding: 5px;
+      width: 100%;
+    }
 
-         .table-title h3 {
-            color: #252525;
-            font-size: 30px;
-            font-weight: 400;
-            font-style: normal;
-            text-transform: uppercase;
-         }
-
-
-         /*** Table Styles **/
-
-         .table-fill {
-            background: white;
-            border-radius: 3px;
-            border-collapse: collapse;
-            margin: auto;
-            padding: 5px;
-            width: 100%;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            animation: float 5s infinite;
-         }
-
-         th {
-            font-size: 16px;
-            font-weight: 100;
-            padding: 20px;
-            text-align: left;
-            vertical-align: middle;
-         }
-
-         th:first-child {
-            border-top-left-radius: 3px;
-         }
-
-         th:last-child {
-            border-top-right-radius: 3px;
-            border-right: none;
-         }
-
-         thead {
-            border-bottom-: 1px solid #C1C3D1;
-         }
-
-         tr {
-            color: #666B85;
-            font-size: 16px;
-            font-weight: normal;
-            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
-         }
-
-         tr:hover td {
-            background: #4E5066;
-            color: #FFFFFF;
-            border-top: 1px solid #22262e;
-         }
-
-         tr:first-child {
-            border-top: none;
-         }
-
-         tr:last-child {
-            border-bottom: none;
-         }
-
-         tr:nth-child(odd) td {
-            background: #EBEBEB;
-         }
-
-         tr:nth-child(odd):hover td {
-            background: #4E5066;
-         }
-
-         tr:last-child td:first-child {
-            border-bottom-left-radius: 3px;
-         }
-
-         tr:last-child td:last-child {
-            border-bottom-right-radius: 3px;
-         }
-
-         td {
-            background: #FFFFFF;
-            padding: 12px 20px;
-            text-align: left;
-            vertical-align: middle;
-            font-weight: 300;
-            font-size: 16px;
-         }
-
-         td:last-child {
-            border-right: 0px;
-         }
-
-         th.text-left,
-         td.text-left {
-            text-align: left;
-         }
-
-         th.text-center,
-         td.text-center {
-            text-align: center;
-         }
-
-         a {
-            cursor: pointer!important;
-         }
-
-        td.importance_5 {
-          background-color: #ffc397!important;
-        }
-
-         td.importance_6,
-         td.importance_7,
-         td.importance_8 {
-            background-color: orange!important;
-            color: white;
-            font-weight: bold;
-         }
-
-         td.importance_9,
-         td.importance_10 {
-            background-color: red!important;
-            color: white;
-            font-weight: bold;
-         }
+    .table-title h3 {
+      color: #252525;
+      font-size: 30px;
+      font-weight: 400;
+      font-style: normal;
+      text-transform: uppercase;
+    }
 
 
-         .nds-footer-navbarstripe {
-             background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
-             height: 2px;
-             position: fixed;
-             bottom: 80px;
-             left: 0;
-             right: 0;
-             z-index: 1000;
-         }
+    /*** Table Styles **/
 
-         #module_controls {
-         	position: fixed;
-         	bottom: 0;
-         	left:0;
-         	right: 0;
-         	height:80px;
-         	background-color:#f2f2f2;
-          z-index: 1000;
-         }
+    .table-fill {
+      background: white;
+      border-radius: 3px;
+      border-collapse: collapse;
+      margin: auto;
+      padding: 5px;
+      width: 100%;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      animation: float 5s infinite;
+    }
 
-         #module_controls #headerrow4 .button {
-            position: relative;
-            top: 10px;
-            right: 170px;
-        }
+    th {
+      font-size: 16px;
+      font-weight: 100;
+      padding: 20px;
+      text-align: left;
+      vertical-align: middle;
+    }
 
-        .button {
-          background-color: #F2F2F2;
-          color: #003A5F;
-          margin-top: 10px;
-          height: 20px;
-          display: inline-block;
-          padding: 2px 12px 8px 12px;
-          margin-bottom: 0;
-          font-size: 1rem;
-          font-weight: 400;
-          line-height: 1.42857143;
-          text-align: center;
-          white-space: nowrap;
-          vertical-align: middle;
-          -ms-touch-action: manipulation;
-          touch-action: manipulation;
-          cursor: pointer;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-          background-image: none;
-          border: 1px solid transparent;
-          border-radius: 4px;
-          text-decoration: none;
-          box-shadow: 2px 2px 5px 0 #0000006e;
-      }
+    th:first-child {
+      border-top-left-radius: 3px;
+    }
 
-      #global_controls #headerrow4, #module_controls #headerrow4 {
-          float: right;
-      }
-      #global_controls .controlrow, #module_controls .controlrow {
-          float: left;
-          height: 120px;
-          width: 400px;
-          margin-left: 20px;
-      }
-      table tbody, table thead {
-          display: block;
-      }
+    th:last-child {
+      border-top-right-radius: 3px;
+      border-right: none;
+    }
 
-      table tbody {
-         overflow: auto;
-        height: calc(100vh - 300px);
-      }
+    thead {
+      border-bottom-: 1px solid #C1C3D1;
+    }
 
-      table {
-          width: 350px; /* can be dynamic */
-      }
+    tr {
+      color: #666B85;
+      font-size: 16px;
+      font-weight: normal;
+      text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+    }
 
-     table th:nth-child(1), td:nth-child(1) { min-width: 100px;  max-width: 100px; }
-     table th:nth-child(2), td:nth-child(2) { min-width: 60px; max-width: 60px; }
-     table th:nth-child(3), td:nth-child(3) { min-width: 75px; max-width: 75px; }
-     table th:nth-child(4), td:nth-child(4) { min-width: 558px; max-width: 558px; }
-     table th:nth-child(5), td:nth-child(5) { min-width: 67px; max-width: 67px; }
-     table th:nth-child(6), td:nth-child(6) { min-width: 104px; max-width: 104px; }
-     table th:nth-child(7), td:nth-child(7) { min-width: 64px; max-width: 64px; }
-     table th:nth-child(8), td:nth-child(8) { min-width: 124px; max-width: 124px; }
+    tr:hover td {
+      background: #4E5066;
+      color: #FFFFFF;
+      border-top: 1px solid #22262e;
+    }
 
-           </style>
-   </head>
-   <body>
-      <div id="navbar">
-         <img alt="NetzDatenStrom Styleguide" src="http://netzdatenstrom.imis.uni-luebeck.de/assets/images/logo_50.png">
-      </div>
-      <div class="nds-header-navbarstripe"></div>
-      <div class="container">
-         <div class="table-title">
-            <h3>Alarmmeldungen Raum Lübeck</h3>
-         </div>
-         <table id="alarmList" class="table-fill">
-            <thead>
-               <tr>
-                  <th>Zeit</th>
-                  <th>Priorität</th>
-                  <th>Grund</th>
-                  <th>Meldung</th>
-                  <th>Gebiet</th>
-                  <th>Auftreten</th>
-                  <th>Quittiert</th>
-                  <th>Aktion</th>
-               </tr>
-            </thead>
-            <tbody id="alarm_list" class="table-hover">
-            </tbody>
-         </table>
-      </div>
-      <div class="nds-footer-navbarstripe"></div>
-      <div id="module_controls">
-    	<div class="controlrow" id="headerrow4">
-    		<a  id="openModal" class="button primary">Alarme quittieren</a>
-    		<a class="button">Alarm aufnehmen</a>
-    	</div>
-      </div>
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
-      <script type="text/javascript" src="store.js"></script>
-      <script type="text/javascript" src="netzDatenStrom.js"></script>
-      <script type="text/javascript" src="alarm.js"></script>
-   </body>
+    tr:first-child {
+      border-top: none;
+    }
+
+    tr:last-child {
+      border-bottom: none;
+    }
+
+    tr:nth-child(odd) td {
+      background: #EBEBEB;
+    }
+
+    tr:nth-child(odd):hover td {
+      background: #4E5066;
+    }
+
+    tr:last-child td:first-child {
+      border-bottom-left-radius: 3px;
+    }
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius: 3px;
+    }
+
+    td {
+      background: #FFFFFF;
+      padding: 12px 20px;
+      text-align: left;
+      vertical-align: middle;
+      font-weight: 300;
+      font-size: 16px;
+    }
+
+    td:last-child {
+      border-right: 0px;
+    }
+
+    th.text-left,
+    td.text-left {
+      text-align: left;
+    }
+
+    th.text-center,
+    td.text-center {
+      text-align: center;
+    }
+
+    a {
+      cursor: pointer !important;
+    }
+
+    td.importance_5,
+    td.importance_6 {
+      background-color: #ff8080 !important;
+    }
+
+    td.importance_7,
+    td.importance_8 {
+      background-color: #ff4040 !important;
+      color: white;
+      font-weight: bold;
+    }
+
+    td.importance_9,
+    td.importance_10 {
+      background-color: #ff0000 !important;
+      color: white;
+      font-weight: bold;
+    }
+
+
+    .nds-footer-navbarstripe {
+      background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
+      height: 2px;
+      position: fixed;
+      bottom: 80px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    #module_controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background-color: #f2f2f2;
+      z-index: 1000;
+    }
+
+    #module_controls #headerrow4 .button {
+      position: relative;
+      top: 10px;
+      right: 170px;
+    }
+
+    .button {
+      background-color: #F2F2F2;
+      color: #003A5F;
+      margin-top: 10px;
+      height: 20px;
+      display: inline-block;
+      padding: 2px 12px 8px 12px;
+      margin-bottom: 0;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: 2px 2px 5px 0 #0000006e;
+    }
+
+    #global_controls #headerrow4,
+    #module_controls #headerrow4 {
+      float: right;
+    }
+
+    #global_controls .controlrow,
+    #module_controls .controlrow {
+      float: left;
+      height: 120px;
+      width: 400px;
+      margin-left: 20px;
+    }
+
+    table tbody,
+    table thead {
+      display: block;
+    }
+
+    table tbody {
+      overflow: auto;
+      height: calc(100vh - 300px);
+    }
+
+    table {
+      width: 350px;
+      /* can be dynamic */
+    }
+
+    table th:nth-child(1),
+    td:nth-child(1) {
+      min-width: 100px;
+      max-width: 100px;
+    }
+
+    table th:nth-child(2),
+    td:nth-child(2) {
+      min-width: 60px;
+      max-width: 60px;
+    }
+
+    table th:nth-child(3),
+    td:nth-child(3) {
+      min-width: 75px;
+      max-width: 75px;
+    }
+
+    table th:nth-child(4),
+    td:nth-child(4) {
+      min-width: 558px;
+      max-width: 558px;
+    }
+
+    table th:nth-child(5),
+    td:nth-child(5) {
+      min-width: 67px;
+      max-width: 67px;
+    }
+
+    table th:nth-child(6),
+    td:nth-child(6) {
+      min-width: 104px;
+      max-width: 104px;
+    }
+
+    table th:nth-child(7),
+    td:nth-child(7) {
+      min-width: 64px;
+      max-width: 64px;
+    }
+
+    table th:nth-child(8),
+    td:nth-child(8) {
+      min-width: 124px;
+      max-width: 124px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar">
+    <img alt="NetzDatenStrom Styleguide" src="http://netzdatenstrom.imis.uni-luebeck.de/assets/images/logo_50.png">
+  </div>
+  <div class="nds-header-navbarstripe"></div>
+  <div class="container">
+    <div class="table-title">
+      <h3>Alarmmeldungen Raum Lübeck</h3>
+    </div>
+    <table id="alarmList" class="table-fill">
+      <thead>
+        <tr>
+          <th>Zeit</th>
+          <th>Priorität</th>
+          <th>Grund</th>
+          <th>Meldung</th>
+          <th>Gebiet</th>
+          <th>Auftreten</th>
+          <th>Quittiert</th>
+          <th>Aktion</th>
+        </tr>
+      </thead>
+      <tbody id="alarm_list" class="table-hover">
+      </tbody>
+    </table>
+  </div>
+  <div class="nds-footer-navbarstripe"></div>
+  <div id="module_controls">
+    <div class="controlrow" id="headerrow4">
+      <a id="openModal" class="button primary">Alarme quittieren</a>
+      <a class="button">Alarm aufnehmen</a>
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="http://netzdatenstrom.imis.uni-luebeck.de:2403/dpd.js"></script>
+  <script type="text/javascript" src="store.js"></script>
+  <script type="text/javascript" src="netzDatenStrom.js"></script>
+  <script type="text/javascript" src="alarm.js"></script>
+</body>
+
 </html>
