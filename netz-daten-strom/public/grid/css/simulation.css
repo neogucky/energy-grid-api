@@ -4,6 +4,10 @@
 /*
     General
 */
+html {
+  font-size: 18px;
+}
+
 .left {
   float: left;
 }
