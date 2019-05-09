@@ -1,160 +1,165 @@
 /*
     The stylesheet for the simulation page
 */
-
 /*
     General
 */
 .left {
-	float: left;
+  float: left;
 }
 
 body {
-	height: 100%;
-	overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 /*
 	Texts
 */
 @media all and (min-width: 1000px) {
-	.text-medium {
-		font-size: 16px;
-	}
+  .text-medium {
+    font-size: 16px;
+  }
 }
 
 @media all and (max-width: 1000px) {
-    .text-medium {
-	font-size: 1.5vw;
-    }
+  .text-medium {
+    font-size: 1.5vw;
+  }
 }
 
 /*
 	Navigationbar
 */
-
 .nds-footer-navbarstripe {
-		background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
-		height: 2px;
-		position: fixed;
-		bottom: 80px;
-		left: 0;
-		right: 0;
-		z-index: 1000;
+  background-image: linear-gradient(to right, rgba(121, 182, 28, 1)0%, rgba(2, 129, 196, 1)75%);
+  height: 2px;
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 #module_controls {
- position: absolute;
- bottom: 0;
- left:0;
- right: 0;
- height:80px;
- background-color:#f2f2f2;
-		z-index: 1000;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: #f2f2f2;
+  z-index: 1000;
 }
 
 #module_controls #headerrow4 .button {
-	 position: relative;
-	 top: 10px;
-	 right: 170px;
+  position: relative;
+  top: 10px;
+  right: 170px;
 }
 
 .button {
- background-color: #F2F2F2;
- color: #003A5F;
- margin-top: 10px;
- height: 20px;
- display: inline-block;
- padding: 2px 12px 8px 12px;
- margin-bottom: 0;
- font-size: 1rem;
- font-weight: 400;
- line-height: 1.42857143;
- text-align: center;
- white-space: nowrap;
- vertical-align: middle;
- -ms-touch-action: manipulation;
- touch-action: manipulation;
- cursor: pointer;
- -webkit-user-select: none;
- -moz-user-select: none;
- -ms-user-select: none;
- user-select: none;
- background-image: none;
- border: 1px solid transparent;
- border-radius: 4px;
- text-decoration: none;
- box-shadow: 2px 2px 5px 0 #0000006e;
+  background-color: #F2F2F2;
+  color: #003A5F;
+  margin-top: 10px;
+  height: 20px;
+  display: inline-block;
+  padding: 2px 12px 8px 12px;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 2px 2px 5px 0 #0000006e;
+}
+
+.primary {
+  background-color: #003a5f;
+  color: #ffffff;
 }
 
 #global_controls #headerrow4, #module_controls #headerrow4 {
- float: right;
+  float: right;
 }
+
 #global_controls .controlrow, #module_controls .controlrow {
- float: left;
- height: 120px;
- width: 400px;
- margin-left: 20px;
+  float: left;
+  height: 120px;
+  width: 400px;
+  margin-left: 20px;
 }
 
-#close-btn{
-	width: 400px;
-	height: 36px;
-	background: url("http://netzdatenstrom.imis.uni-luebeck.de/assets/images/logo_50.png") no-repeat;
-	background-size: contain;
+#close-btn {
+  width: 400px;
+  height: 36px;
+  background: url("http://netzdatenstrom.imis.uni-luebeck.de/assets/images/logo_50.png") no-repeat;
+  background-size: contain;
 }
 
-#link-btn{
-	width: 0.1vw;
-	margin-left:2vw;
+#link-btn {
+  width: 0.1vw;
+  margin-left: 2vw;
 }
 
 #time {
   text-align: center;
   color: black;
   margin-top: 0.5vw;
-  margin-right:2vw;
-	display: none;
+  margin-right: 2vw;
+  display: none;
 }
 
 /*
 	Grid
 */
 #grid-container {
-	position: absolute;
-	top: 60px;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	overflow: hidden;
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 }
+
 #container {
-	position: relative;
-	left: 0;
-	right: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	bottom: 0;
-	background-color: #f2f2f2;
-	overflow: hidden;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  background-color: #f2f2f2;
+  overflow: hidden;
 }
 
 /*
 	Tutorial
 */
 #tutorial-container {
-	z-index: 2;
+  z-index: 2;
 }
 
 #info-btn,
-#info-btn:hover{
-	margin-top: 0.6vh;
-	background: url("../res/img/info.png") no-repeat;
-	background-size: 85% 85%;
-	filter: invert(100%);
-}
-#close-btn:hover
 #info-btn:hover {
-	cursor: pointer;
+  margin-top: 0.6vh;
+  background: url("../res/img/info.png") no-repeat;
+  background-size: 85% 85%;
+  filter: invert(100%);
+}
+
+#close-btn:hover #info-btn:hover {
+  cursor: pointer;
 }
